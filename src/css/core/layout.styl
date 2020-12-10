@@ -1,0 +1,32 @@
+/*
+ * Layout
+ */
+
+$auto-minsize = minmax(min-content, max-content)
+
+.layout
+	display grid
+	grid-template-areas 'navbar navbar' 'sidebar main'
+	grid-template-columns $size-gigantic auto
+	grid-template-rows $auto-minsize auto
+
+	@media $from.lg
+		grid-template-columns 160px auto
+
+	&__navbar
+		grid-area navbar
+		z-index navbar
+
+	&__sidebar
+		grid-area sidebar
+		z-index sidebar
+
+	&__main
+		grid-area main
+		padding $spacing-snug
+		width 'calc(100vw - %s)' % $size-gigantic
+		z-index main
+
+		@media $from.lg
+			padding $spacing-widish $spacing-vast
+			width auto

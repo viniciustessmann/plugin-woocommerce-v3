@@ -1,0 +1,63 @@
+extends ../../layouts/view
+
+block content
+	.grid__item-sm--12
+		h1.text--hero Forms
+
+		article.space--snug.grid
+			.grid__item-sm--12.space--snug
+				field(
+					v-model='fieldInput',
+					name='field1',
+					label='Label',
+					message='Optional message'
+				)
+
+		article.space--snug.grid
+			.grid__item-sm--12.space--snug
+				field(
+					v-model='fieldTextarea',
+					name='textarea1',
+					type='textarea',
+					label='Textarea',
+					message='Optional message'
+				)
+
+		article.space--snug.grid
+			.grid__item-sm--12.space--snug
+				combobox(
+					v-model='combobox',
+					label='Combobox',
+					:options='[{name: "Option 1", id: "option1"}, {name: "Option 2", id: "option2"}]'
+				)
+
+		article.space--snug.grid
+			.grid__item-sm--12.grid__item-md--4
+				checkbox.space--snug(v-model='checkbox', label='Checkbox')
+
+			.grid__item-sm--12.grid__item-md--4
+				toggle.space--snug(v-model='toggle', label='Toggle')
+
+			.grid__item-sm--12.grid__item-md--4
+				radio(v-model='radio', :options='[{name: "Radio 1", id: "radio1"}, {name: "Radio 2", id: "radio2"}]')
+
+		article.space--snug.grid
+			.grid__item-sm--12.grid__item-lg--4
+				datepicker(
+					v-model='minDate',
+					label='Data mínima',
+					:max-date='maxDate'
+				)
+			.grid__item-sm--12.grid__item-lg--4.space-i-y--tight.space-i-y-lg--none.space-i-x-lg--tight
+				datepicker(
+					v-model='maxDate',
+					label='Data máxima'
+					:min-date='minDate'
+				)
+			.grid__item-sm--12.grid__item-lg--4
+				datepicker(
+					v-model='datepicker',
+					label='Datepicker',
+					:min-date='minDate',
+					:max-date='maxDate'
+				)

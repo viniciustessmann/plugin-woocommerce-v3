@@ -1,0 +1,89 @@
+/*
+ * Buttons
+ */
+
+// Set button theme
+button-set-theme($theme = primary, $style = default)
+	$prop = $style is default ? background-color : color
+
+	{$prop} lookup('$theme-' + $theme)
+
+	&:hover
+	&:focus
+		{$prop} lookup('$theme-' + $theme + '-light')
+
+	&:active
+		{$prop} lookup('$theme-' + $theme + '-dark')
+
+.button
+	position relative
+	display inline-block
+	padding $size-small $size-big
+	height $size-immense
+	font-size $size-small
+	text-align center
+	text-transform uppercase
+	line-height (18/14)
+	vertical-align middle
+	white-space nowrap
+	color $theme-neutral-shine
+	border-radius $size-nano
+	box-shadow $shadow-small
+	transition $transition-fast
+	transition-property color, background-color, border-color
+	cursor pointer
+
+	button-set-theme(primary)
+
+	for $theme in $themes
+		unless $theme is 'neutral'
+			&--{$theme}
+				button-set-theme($theme)
+
+	&--alt
+	&--minimal
+		text-transform none
+		background transparent
+
+		button-set-theme(primary, alt)
+
+		for $theme in $themes
+			unless $theme is 'neutral'
+				&^[0]--{$theme}
+					button-set-theme($theme, alt)
+
+		&:hover
+		&:focus
+			background transparent
+
+	&--alt
+		border 1px solid currentColor
+
+	&--minimal
+		box-shadow none
+
+		&:hover
+			&:after
+				transform scaleX(.5)
+				transition-timing-function cubic-bezier(.5, 4, .2, .5)
+				transition-duration $transition-default
+
+		&:active
+			&:after
+				transform scaleX(1)
+				transition-timing-function ease-out
+				transition-duration $transition-fast
+
+		&:after
+			content ''
+			display block
+			width 100%
+			height 1px
+			background-color currentColor
+			transition transform $transition-default
+			transform-origin 0 0
+
+	.icon
+		margin-right $size-normal
+		size $size-big
+		transform translateY(-.1em)

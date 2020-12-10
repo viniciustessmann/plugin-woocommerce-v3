@@ -1,0 +1,16 @@
+extends ../../layouts/component
+
+block content
+	form-set(
+		:validation='validation',
+		:message='message',
+		:error-message='errorMessage'
+	)
+		.space--snug(v-for='option in options')
+			label.form__radio
+				input.form__radio__input(
+					type='radio',
+					:value='option.id',
+					v-model='_value'
+				)
+				| {{option.name}}

@@ -1,0 +1,6 @@
+<svg<%= attributesToString(svgAttrs) %>>
+<% if (defs) { %><defs>
+<%= defs.trim() %>
+</defs>
+<% } %><%= icons.map(svgdataToSymbol).join('\n') %>
+</svg>

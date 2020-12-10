@@ -1,0 +1,124 @@
+/*
+ * Sidebar
+ */
+
+responsive-behaviour()
+	@media $from.lg
+		&:hover
+			{block}
+
+	&--open
+		{block}
+
+.sidebar
+	overflow hidden
+	overflow-y auto
+	sticky top 62px // Navbar height
+	padding $size-mini 0
+	width 100%
+	height 'calc(100vh - %s)' % @top
+	font-size $font-size-xs
+	list-style none
+	color transparent
+	background $theme-neutral-shine
+	box-shadow $shadow-large
+	transition width $transition-fast
+
+	@media $from.lg
+		top 68px // Navbar height
+		height 'calc(100vh - %s)' % @top
+		color $theme-neutral-dark
+
+		& ^[0]__link
+			&:not(:only-child):after
+				opacity 1
+
+	@media $to.md
+		&--open
+			width 35vw
+			color $theme-neutral-dark
+
+			& ^[0]__toggler
+				transform rotate(180deg)
+
+			& ^[0]__link
+				&:not(:only-child):after
+					opacity 1
+
+	@media $to.sm
+		&--open
+			width 60vw
+
+	&__toggler
+		position relative
+		display block
+		margin $size-mini
+		size $size-big
+		transition $transition-fast
+
+		&:after
+			content ''
+			absolute top 50% left 50%
+			display block
+			margin-left -($size-quark)
+			size $size-tiny
+			border solid $theme-primary
+			border-width 1px 1px 0 0
+			transform translate(-50%, -50%) rotate(45deg)
+
+		@media $from.lg
+			display none
+
+	&__item
+		+responsive-behaviour()
+			& ^[0]__link
+				&:not(:only-child):after
+					margin-top -($size-nano)
+					transform rotate(-45deg)
+
+			& ^[0]__sub
+				max-height 150px
+
+	&__link
+		display block
+		padding $spacing-narrow
+		white-space nowrap
+		transition color $transition-fast
+		cursor pointer
+
+		&:not(:only-child)
+			position relative
+
+			&:after
+				content ''
+				absolute top 50% right $size-little
+				margin-top -($size-micro)
+				size $size-tiny
+				border solid $theme-primary
+				border-width 1px 1px 0 0
+				opacity 0
+				transform rotate(135deg)
+				transition $transition-fast
+
+		.icon
+			margin-right $spacing-snug
+			size $size-big
+			color $theme-primary
+
+	&__sub
+		overflow hidden
+		max-height 0
+		transition max-height $transition-fast
+
+		&__link
+			display block
+			padding $spacing-narrow
+			padding-left $size-immense
+			white-space nowrap
+			background $theme-neutral-bright
+			transition $transition-fast
+			transition-property color, background
+
+			&:hover
+			&--active
+				background $theme-neutral-light

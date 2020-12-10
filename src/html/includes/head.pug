@@ -1,0 +1,12 @@
+head
+	meta(charset='utf-8')
+	meta(http-equiv='X-UA-Compatible', content='IE=edge')
+	meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+	title=$.meta.title
+
+	include head/favicons
+	include head/info
+
+	link(rel='stylesheet', type='text/css', href=versionalize('css/style.css'))
+	-const webFonts = '//fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700&display=swap';
+	link(rel='stylesheet', type='text/css', href=webFonts)

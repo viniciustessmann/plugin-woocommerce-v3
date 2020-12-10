@@ -1,0 +1,81 @@
+/*
+ * Spacing
+ */
+
+// Add media query if needed
+spacing-suffix($b, $s)
+	if $b is 'sm'
+		&--{$s}
+			{block}
+	else
+		@media $from[$b]
+			&-{$b}--{$s}
+				{block}
+
+// Generate spacing classes
+spacing-classes($prop, $sizes, $var)
+	for $b in $mantis.querist.breakpoints
+		for $s in $sizes
+			$size = lookup('$' + $var + '-' + $s)
+
+			if $var is 'default'
+				+spacing-suffix($b, $s)
+					margin-bottom lookup('$spacing-' + $s)
+
+			else
+				// @stylint off
+				+spacing-suffix($b, $s)
+					{$prop}-top $size
+					{$prop}-bottom $size
+					{$prop}-left $size
+					{$prop}-right $size
+
+				&-x
+					+spacing-suffix($b, $s)
+						{$prop}-left $size
+						{$prop}-right $size
+
+				&-y
+					+spacing-suffix($b, $s)
+						{$prop}-top $size
+						{$prop}-bottom $size
+				// @stylint on
+
+				&-t
+					+spacing-suffix($b, $s)
+						{$prop}-top $size
+
+				&-b
+					+spacing-suffix($b, $s)
+						{$prop}-bottom $size
+
+				&-l
+					+spacing-suffix($b, $s)
+						{$prop}-left $size
+
+				&-r
+					+spacing-suffix($b, $s)
+						{$prop}-right $size
+
+
+// Margin classes: .m-[p][-bp]--[size]
+.m
+	spacing-classes(margin, $sizes.names, 'size')
+
+// Padding classes: .p-[p][-bp]--[size]
+.p
+	spacing-classes(padding, $sizes.names, 'size')
+
+// Space classes
+.space
+	// .space-[p][-bp]--[size]
+	spacing-classes(margin, $spacing, 'default')
+
+	&-o
+		// .space-o-[p][-bp]--[size]
+		spacing-classes(margin, $spacing, 'spacing')
+
+	&-i
+		// .space-i-[p][-bp]--[size]
+		spacing-classes(padding, $spacing, 'spacing')
+

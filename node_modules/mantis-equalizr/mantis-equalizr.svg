@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch -->
+    <title>mantis-equalizr</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="mantis-equalizr" sketch:type="MSArtboardGroup">
+            <g id="logo" sketch:type="MSLayerGroup" transform="translate(0.000000, 45.000000)">
+                <rect id="Rectangle-2" fill="#2D6A47" sketch:type="MSShapeGroup" x="0" y="90" width="60" height="20"></rect>
+                <rect id="Rectangle-4" fill="#2D6A47" sketch:type="MSShapeGroup" x="70" y="90" width="60" height="20"></rect>
+                <rect id="Rectangle-5" fill="#2D6A47" sketch:type="MSShapeGroup" x="140" y="90" width="60" height="20"></rect>
+                <rect id="Rectangle-3" fill="#1F9F55" sketch:type="MSShapeGroup" x="0" y="60" width="60" height="20"></rect>
+                <rect id="Rectangle-7" fill="#1F9F55" sketch:type="MSShapeGroup" x="70" y="60" width="60" height="20"></rect>
+                <rect id="Rectangle-6" fill="#1F9F55" sketch:type="MSShapeGroup" x="140" y="60" width="60" height="20"></rect>
+                <rect id="Rectangle-10" fill="#8ED1A8" sketch:type="MSShapeGroup" x="0" y="30" width="60" height="20"></rect>
+                <rect id="Rectangle-8" fill="#8ED1A8" sketch:type="MSShapeGroup" x="140" y="30" width="60" height="20"></rect>
+                <rect id="Rectangle-9" fill="#BDF2D2" sketch:type="MSShapeGroup" x="140" y="0" width="60" height="20"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

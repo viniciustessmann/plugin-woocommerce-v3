@@ -1,0 +1,75 @@
+/*
+ * Context Menu
+ */
+
+.context-menu
+	position relative
+
+	&--open
+		& ^[0]__dropdown
+			transform scale(1)
+			visible true
+
+	&__trigger
+		display flex
+		justify-content center
+		align-items center
+		size $size-gigantic
+		background $theme-neutral-shine
+		border-radius 50%
+
+		.icon
+			size 80%
+			color $theme-primary
+
+	&__avatar
+		overflow hidden
+		display block
+		margin 0 auto $size-medium
+		size $size-astronomical
+		background $theme-neutral-murk
+		border-radius 50%
+
+	&__name
+		margin-bottom $size-gigantic
+
+	&__dropdown
+		absolute top 100% right 50%
+		margin-top $size-large
+		padding $size-grand $size-immense
+		max-width 100vw
+		text-align center
+		white-space nowrap
+		color $theme-neutral-murk
+		background $theme-neutral-shine
+		border-radius $size-nano
+		border-top-right-radius 0
+		visible false
+		transform scale(.95)
+		transform-origin 100% 0
+		transition $transition-fast
+		transition-property opacity, transform, visibility
+		filter drop-shadow($shadow-large-down)
+
+		@media $from.lg
+			min-width 278px
+
+		&:before
+			content ''
+			absolute bottom 100% right 0
+			border $size-tiny solid
+			border-color transparent $theme-neutral-shine $theme-neutral-shine transparent
+
+	&__links
+		&__item
+			display block
+			margin-bottom $size-grand
+			text-align left
+
+			&:last-child
+				margin-bottom 0
+
+			.icon
+				margin-right $size-normal
+				size $size-big
+				color $theme-primary

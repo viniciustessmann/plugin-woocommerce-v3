@@ -1,0 +1,148 @@
+/*
+ * Datepicker Config
+ */
+
+$datepicker-nav-background = $colors.anakiwa
+$datepicker-not-current-background = $colors.concrete
+
+
+/*
+ * Datepicker Styles
+ */
+
+.datepicker
+	overflow hidden
+	display flex
+	flex-wrap wrap
+	flex-direction column
+	transition $transition-fast
+	transition-property opacity
+	will-change opacity
+	user-select none
+	cursor default
+
+	// @stylint off
+	&--mode
+		&-day
+			& ^[0]__months
+			& ^[0]__years
+				display none
+
+		&-month
+			& ^[0]__days
+			& ^[0]__years
+				display none
+
+			& ^[0]__week__item
+				visibility hidden
+
+		&-year
+			& ^[0]__days
+			& ^[0]__months
+				display none
+
+			& ^[0]__week__item
+				visibility hidden
+	// @stylint on
+
+	&__nav
+	&__week
+	&__days
+	&__months
+	&__years
+		display flex
+		flex-wrap wrap
+		justify-content space-between
+		width 100%
+
+	&__nav
+	&__week
+		background $datepicker-nav-background
+
+	&__week
+	&__days
+		&__item
+			flex-basis (100/7)%
+			padding $size-micro 0
+			text-align center
+
+	&__nav
+		order 1
+		padding-top $size-micro
+		color $theme-primary
+
+		&__prev
+		&__next
+			display flex
+			flex-basis (100/7)%
+			align-items center
+			justify-content center
+
+			&:before
+				$size = 9px
+				content ''
+				border solid
+				border-width ceil($size / 2) $size ceil($size / 2) 0
+				border-color transparent currentColor transparent transparent
+
+		&__next
+			&:before
+				transform scaleX(-1)
+
+		&__label
+			text-transform uppercase
+			letter-spacing 2px
+
+	&__week
+		flex-wrap unset
+		order 2
+		font-weight $type-default-font-weight-bold
+
+	&__days
+		order 3
+
+		&__item
+			@extend .text--small
+
+			&:nth-child(7n)
+			&:nth-child(7n+1)
+				color $theme-neutral-clear
+				background $theme-neutral-bright
+
+			&--past
+			&--next
+				color $theme-neutral-dark !important
+				background $datepicker-not-current-background !important
+
+			&--today
+				font-weight $type-default-font-weight-bold
+				color $theme-info !important
+
+			&:disabled
+				opacity .2
+				cursor not-allowed
+
+	&__months
+		order 4
+
+		&__item
+			flex-basis (100/3)%
+			padding $size-little 0
+
+	&__years
+		order 5
+
+		&__item
+			flex-basis (100/3)%
+			padding $size-little 0
+
+	&__days
+	&__months
+	&__years
+		&__item
+			text-align center
+			text-transform uppercase
+
+			&--selected
+				color $theme-neutral-shine !important
+				background $theme-primary !important

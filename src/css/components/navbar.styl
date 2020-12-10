@@ -1,0 +1,84 @@
+/*
+ * Navbar
+ */
+
+.navbar
+	@extend .background--primary, .color--neutral-shine
+
+	position sticky
+	top 0
+	display flex
+	grid-align center
+	grid-justify between
+	padding $spacing-snug
+	box-shadow $shadow-large
+
+	&--sticky
+		fixed top 0 left 0 right 0
+
+	&--open
+		& ^[0]__collapse
+			transform translate3d(0, 0, 0)
+			visible true
+
+	&--expand
+		for $bp in $mantis.querist.breakpoints
+			@media $from[$bp]
+				&-{$bp}
+					padding-left $spacing-loose
+					padding-right $spacing-loose
+
+					& ^[0]__brand
+						.icon
+							size 80px 36px
+
+					& ^[0]__collapse
+						relative top 0
+						background none
+						visible true
+						transform translate3d(0, 0, 0)
+						transition none
+						z-index initial
+
+					& ^[0]__nav
+						flex-direction row
+						padding 0
+
+						&:only-child
+							margin-left auto
+
+					& ^[0]__link
+						margin-left $spacing-snug
+
+					& ^[0]__menu
+						display none
+
+	&__brand
+		.icon
+			size 65px 30px
+			color $theme-neutral-shine
+			fill $theme-brand-icon
+
+	&__collapse
+		@extend .background--primary-light
+
+		absolute top 100% left 0 right 0
+		transform translate3d(0, -($size-tiny), 0)
+		transform scaleY(.95)
+		transform-origin 50% 0
+		visible false
+		transition $transition-fast
+
+	&__nav
+		display flex
+		flex-direction column
+		list-style none
+
+	&__link
+		display block
+		padding-top $spacing-narrow
+		padding-bottom $spacing-narrow
+
+	&__menu
+		.icon
+			size 22px

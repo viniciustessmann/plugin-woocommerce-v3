@@ -1,0 +1,14 @@
+extends ../../layouts/component
+
+block content
+	form-set(
+		:validation='validation',
+		:message='message',
+		:error-message='errorMessage'
+	)
+		label.form__checkbox
+			input.form__checkbox__input(
+				type='checkbox',
+				v-model='_value'
+			)
+			| {{label}}
