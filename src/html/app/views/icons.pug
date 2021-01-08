@@ -1,8 +1,0 @@
-extends ../../layouts/view
-
-block content
-	.grid__item-sm--12
-		h1.text--hero Icons
-
-		each icon in icons
-			+icon(icon.replace('.svg', ''))(style='font-size: 32px')

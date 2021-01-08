@@ -1,9 +1,0 @@
-extends ../../layouts/component
-
-block content
-	.form__set(:class='{"form--error": !isValid}')
-		slot
-		slot(name='field')
-		slot(name='label')
-		p.form__message(v-if='isValid && message') {{message}}
-		p.form__message(v-if='!isValid && errorMessage') {{errorMessage}}

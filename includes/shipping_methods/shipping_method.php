@@ -1,6 +1,7 @@
 <?php
 
 use V3\Services\CalculateService;
+use V3\Helpers\NormalizePostalCodeHelper;
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
@@ -8,6 +9,9 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     {
         if (!class_exists('melhorenvio_shipping_method')) {
 
+            /**
+             * Class MelhorEnvio_Shipping_Method
+             */
             class MelhorEnvio_Shipping_Method extends WC_Shipping_Method
             {
                 /**
@@ -18,14 +22,16 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 public function __construct()
                 {
-                    $this->id                 = 'melhorenvio-v3';
-                    $this->method_title       = 'Melhor Envio';
+                    $this->id                 = 'tessmann-shipping';
+                    $this->method_title       = 'Tessmann (Melhor Envio)';
                     $this->method_description = 'Métodos de entregas do Melhor Envio';
 
                     $this->init();
 
                     $this->enabled = isset($this->settings['enabled']) ? $this->settings['enabled'] : 'yes';
                     $this->title = isset($this->settings['title']) ? $this->settings['title'] : 'Melhor Envio';
+                    $this->token = isset($this->settings['token']) ? $this->settings['token'] : null;
+                    $this->postalcode = isset($this->settings['postalcode']) ? $this->settings['postalcode'] : null;
                 }
 
                 /**
@@ -54,12 +60,16 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'description' => 'Ativar esse serviço',
                             'default' => 'yes'
                         ),
-                        'title' => array(
-                            'title' => 'título',
+                        'postalcode' => array(
+                            'title' => 'CEP de origem',
                             'type' => 'text',
-                            'description' => 'Nome de exibição',
-                            'default' => 'Melhor Envio'
+                            'description' => 'Cep de origem para realizar a cotação de frete'
                         ),
+                        'token' => array(
+                            'title' => 'token',
+                            'type' => 'textarea',
+                            'description' => "token de acesso do Melhor Envio, você pode gerar seu token pelo seguinte <a target='_blank' href='https://melhorenvio.com.br/painel/gerenciar/tokens'>link</a>"
+                        )
 
                     );
                 }
@@ -74,8 +84,21 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 public function calculate_shipping($package = array())
                 {
+                    if(empty($this->token) || empty($this->postalcode)) {
+                        return false;
+                    }
 
-                    $rates = (new CalculateService())->calculate($package);
+                    $postalcode = NormalizePostalCodeHelper::get($this->postalcode);
+
+                    $rates = (new CalculateService())->calculate(
+                        $package,
+                        $postalcode,
+                        $this->token
+                    );
+
+                    if (empty($rates)) {
+                        return false;
+                    }
 
                     foreach ($rates as $rate) {
                         $this->add_rate($rate);
