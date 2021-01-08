@@ -7,12 +7,12 @@ use V3\Services\ShippingMethodService;
 require __DIR__ . '/vendor/autoload.php';
 
 /*
-Plugin Name: Melhor Envio v3
-Plugin URI: https://melhorenvio.com.br
-Description: Plugin para cotação e compra de fretes utilizando a API da Melhor Envio.
-Version: 3.0.0
-Author: Melhor Envio
-Author URI: melhorenvio.com.br
+Plugin Name: Tessmann Envio
+Plugin URI:
+Description: Plugin para cotação e compra de fretes utilizando a API pública do Melhor Envio.
+Version: 1.0.0
+Author: Vinícius Schlee Tessmann
+Author URI:
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: baseplugin
@@ -29,11 +29,15 @@ if (!defined('ABSPATH')) {
 
 if (!class_exists('MelhorEnvioPlugin')) {
 
+    /**
+     * Class MelhorEnvioPlugin
+     *
+     */
     class MelhorEnvioPlugin
     {
         public static function init()
         {
-            MenuService::create(plugin_dir_path(__FILE__));
+            //MenuService::create(plugin_dir_path(__FILE__));
             RouterService::init();
             ShippingMethodService::load();
         }
