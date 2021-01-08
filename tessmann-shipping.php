@@ -3,6 +3,8 @@
 use V3\Services\MenuService;
 use V3\Services\RouterService;
 use V3\Services\ShippingMethodService;
+use V3\Services\ColumnsListOrdersService;
+use V3\Services\ActionListOrderService;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -40,6 +42,15 @@ if (!class_exists('MelhorEnvioPlugin')) {
             //MenuService::create(plugin_dir_path(__FILE__));
             RouterService::init();
             ShippingMethodService::load();
+            ColumnsListOrdersService::insertColumnCart();
+            ActionListOrderService::actions();
+
+            add_action( 'admin_enqueue_scripts', function(){
+                wp_enqueue_script(
+                    'actions-me',
+                    '/wp-content/plugins/plugin-woocommerce-v3/src/js/actions.js'
+                );
+            });
         }
     }
 

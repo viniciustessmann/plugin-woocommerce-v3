@@ -7,7 +7,7 @@ class RequestService
 {
     const URL = 'https://api.melhorenvio.com/v2/me';
 
-    const TIMEOUT = 30;
+    const TIMEOUT = 600;
 
     protected $headers;
 

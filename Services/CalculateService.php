@@ -11,6 +11,8 @@ class CalculateService
 {
     const ROUTE_CALCULATE = '/shipment/calculate';
 
+    const SERVICES = '1,2,3,4,17';
+
     /**
      * @param $package
      * @param $from
@@ -77,6 +79,7 @@ class CalculateService
             'to' => (object) [
                 'postal_code' => $to
             ],
+            'services' => self::SERVICES,
             'products' => (object) $products
         ];
     }
