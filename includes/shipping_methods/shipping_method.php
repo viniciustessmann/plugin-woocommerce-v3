@@ -23,7 +23,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 public function __construct()
                 {
                     $this->id                 = 'tessmann-shipping';
-                    $this->method_title       = 'Tessmann (Melhor Envio)';
+                    $this->method_title       = 'Cotações Tessmann';
                     $this->method_description = 'Métodos de entregas do Melhor Envio';
 
                     $this->init();
