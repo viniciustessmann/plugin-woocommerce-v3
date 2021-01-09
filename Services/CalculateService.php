@@ -68,6 +68,7 @@ class CalculateService
             $products[] = [
                 'name' => $_product->get_name(),
                 'unitary_value' => floatval($_product->get_price()),
+                'insurance_value' => floatval($_product->get_price()) * intval($values['quantity']),
                 'width' => wc_get_dimension(floatval($_product->get_width()), 'cm'),
                 'length' => wc_get_dimension(floatval($_product->get_length()), 'cm'),
                 'height' => wc_get_dimension(floatval($_product->get_height()), 'cm'),
@@ -95,7 +96,14 @@ class CalculateService
                 'postal_code' => $to
             ],
             'services' => self::SERVICES,
-            'products' => (object) $products
+            'products' => (object) $products,
+            'options' => [
+                "insurance_value" => $this->getInsuranceValueByProducts($products),
+                'receipt' => false,
+                'own_hand' => false,
+                'reverse' => false,
+                'non_commercial' => true,
+            ]
         ];
     }
 
@@ -112,27 +120,43 @@ class CalculateService
         $rates = [];
         foreach ($quotations as $quotation) {
             $volumes = [];
-            foreach($quotation->packages as $package) {
-                $volumes[] = [
-                    'width' => wc_get_dimension(floatval($package->dimensions->width), 'cm'),
-                    'length' => wc_get_dimension(floatval($package->dimensions->length), 'cm'),
-                    'height' => wc_get_dimension(floatval($package->dimensions->height), 'cm'),
-                    'weight' => wc_get_weight(floatval($package->weight), 'kg'),
+
+            if (!empty($quotation->packages)) {
+                foreach ($quotation->packages as $package) {
+                    $volumes[] = [
+                        'width' => wc_get_dimension(floatval($package->dimensions->width), 'cm'),
+                        'length' => wc_get_dimension(floatval($package->dimensions->length), 'cm'),
+                        'height' => wc_get_dimension(floatval($package->dimensions->height), 'cm'),
+                        'weight' => wc_get_weight(floatval($package->weight), 'kg'),
+                    ];
+                }
+
+                $rates[$quotation->id] = [
+                    'id' => $quotation->id,
+                    'method_id' => $quotation->id,
+                    'label' => sprintf('%s %s', $quotation->company->name, $quotation->name),
+                    'packages' => $volumes,
+                    'cost' => (isset($quotation->price))
+                        ? $quotation->price
+                        : 0
                 ];
             }
-
-            $rates[$quotation->id] = [
-                'id' => $quotation->id,
-                'method_id' => $quotation->id,
-                'label' => sprintf('%s %s', $quotation->company->name, $quotation->name),
-                'packages' => $volumes,
-                'cost' => (isset($quotation->price))
-                    ? $quotation->price
-                    : 0
-            ];
         }
 
         return $rates;
+    }
+
+    /**
+     * @param $products
+     * @return float|int
+     */
+    public function getInsuranceValueByProducts($products)
+    {
+        $value = 0;
+        foreach ($products as $product) {
+            $value += floatval($product['unitary_value'] * $product['quantity']);
+        }
+        return $value;
     }
 
 }

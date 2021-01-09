@@ -52,7 +52,6 @@ class OrdersService
                 "receipt" => false,
                 "own_hand" => false,
                 "collect" => false,
-                "reverse" => false,
                 "non_commercial" => true,
                 'platform' => self::PLATAFORM
             )
