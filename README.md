@@ -13,9 +13,6 @@ A proposta do plugin é realizar as cotações e inserções do carrinho de comp
 ### Instalação
 Clone do repositório dentro do diretório /wp-content/plugins
 ```sh
-$ cd cotacoes-tessmann
-```
-```sh
 $ git clone https://github.com/viniciustessmann/plugin-woocommerce-v3.git
 ```
 ```sh
@@ -23,4 +20,7 @@ $ composer install
 ```
 
 ### Como usar?
+O plugin cria uma metodo de envio que extende as funcionalidades de cotação do plugin do WooCommerce, você precisa preencher algumas informações para funcionamento do plugin. No menu, acesse WooCommerce -> Configurações -> Entrega e clique na aba Cotações Tessmann.
 
+
+Para enviar um pedido para o carrinho de compras basta acessar a lista de pedidos do WooCommerce, e clicar no botão adicionar, assim o pedido será enviado para o seu carrinho de compras do Melhor Envio, o fluxo posterior de comprar e impressão até o momento precisa ser realizado na plataforma do Melhor Envio.
