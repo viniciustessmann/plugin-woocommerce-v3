@@ -20,14 +20,14 @@ class ActionListOrderService
                 return;
             }
 
-            $orderId = (new Order($post_id))->getOrderId();
+            $protocol = (new Order($post_id))->getProtocol();
 
-            if (empty($orderId)) {
+           if (empty($protocol)) {
                 echo '<button class="add-cart-me" data-id="' . $post_id . '">Adicionar ao carrinho do ME </button>';
                 echo '<div class="order-id-me-' . $post_id . '"></div>';
-            } else {
-                echo '<p>Ordem: <b>' . $orderId . '</b></p>';
-            }
+           } else {
+                echo '<p>Protocolo: <b>' . $protocol . '</b></p>';
+           }
 
         }, 20, 2 );
     }

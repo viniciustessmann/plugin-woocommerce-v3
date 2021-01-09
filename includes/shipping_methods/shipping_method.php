@@ -31,7 +31,17 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->enabled = isset($this->settings['enabled']) ? $this->settings['enabled'] : 'yes';
                     $this->title = isset($this->settings['title']) ? $this->settings['title'] : 'Melhor Envio';
                     $this->token = isset($this->settings['token']) ? $this->settings['token'] : null;
-                    $this->postalcode = isset($this->settings['postalcode']) ? $this->settings['postalcode'] : null;
+                    $this->postal_code = isset($this->settings['postal_code']) ? $this->settings['postal_code'] : null;
+                    $this->name = isset($this->settings['name']) ? $this->settings['name'] : null;
+                    $this->phone = isset($this->settings['phone']) ? $this->settings['phone'] : null;
+                    $this->email = isset($this->settings['email']) ? $this->settings['email'] : null;
+                    $this->document = isset($this->settings['document']) ? $this->settings['document'] : null;
+                    $this->address = isset($this->settings['address']) ? $this->settings['address'] : null;
+                    $this->complement = isset($this->settings['complement']) ? $this->settings['complement'] : null;
+                    $this->number = isset($this->settings['number']) ? $this->settings['number'] : null;
+                    $this->district = isset($this->settings['district']) ? $this->settings['district'] : null;
+                    $this->city = isset($this->settings['city']) ? $this->settings['city'] : null;
+                    $this->state = isset($this->settings['state']) ? $this->settings['state'] : null;
                 }
 
                 /**
@@ -60,7 +70,57 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'description' => 'Ativar esse serviço',
                             'default' => 'yes'
                         ),
-                        'postalcode' => array(
+                        'name' => array(
+                          'title' => 'Nome',
+                          'type' => 'text',
+                          'description' => 'Nome do remetente exibido na etiqueta'
+                        ),
+                        'phone' => array(
+                            'title' => 'Telefone',
+                            'type' => 'text',
+                            'description' => 'Telefone exibido na etiqueta'
+                        ),
+                        'email' => array(
+                            'title' => 'E-mail',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'document' => array(
+                            'title' => 'Documento',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'address' => array(
+                            'title' => 'Endereço',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'number' => array(
+                            'title' => 'Número',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'complement' => array(
+                            'title' => 'Complemento',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'district' => array(
+                            'title' => 'Bairro',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'city' => array(
+                            'title' => 'Cidade',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'state' => array(
+                            'title' => 'Estado',
+                            'type' => 'text',
+                            'description' => ''
+                        ),
+                        'postal_code' => array(
                             'title' => 'CEP de origem',
                             'type' => 'text',
                             'description' => 'Cep de origem para realizar a cotação de frete'
@@ -84,16 +144,15 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 public function calculate_shipping($package = array())
                 {
-                    if(empty($this->token) || empty($this->postalcode)) {
+                    if(empty($this->token) || empty($this->postal_code)) {
                         return false;
                     }
 
-                    $postalcode = NormalizePostalCodeHelper::get($this->postalcode);
+                    $postalcode = NormalizePostalCodeHelper::get($this->postal_code);
 
                     $rates = (new CalculateService())->calculate(
                         $package,
-                        $postalcode,
-                        $this->token
+                        $postalcode
                     );
 
                     if (empty($rates)) {

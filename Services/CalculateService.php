@@ -16,30 +16,45 @@ class CalculateService
     /**
      * @param $package
      * @param $from
-     * @param $token
      * @return array
      */
-    public function calculate($package, $from, $token)
+    public function calculate($package, $from)
     {
-        $products = $this->getProducts($package);
-
         if(empty($package['destination']['postcode'])) {
             return false;
         }
 
-        $payload = $this->createPayload(
+        $products = $this->getProducts($package);
+
+        return $this->calculateByProducts(
             $products,
             $from,
             NormalizePostalCodeHelper::get($package['destination']['postcode'])
         );
+    }
 
-        $quotations = (new RequestService($token))->request(
+    /**
+     * @param $products
+     * @param $from
+     * @param $to
+     * @return array
+     */
+    public function calculateByProducts($products, $from, $to)
+    {
+        $payload = $this->createPayload(
+            $products,
+            $from,
+            NormalizePostalCodeHelper::get($to)
+        );
+
+        $quotations = (new RequestService())->request(
             self::ROUTE_CALCULATE,
             'POST',
             $payload);
 
         return $this->filterToRate($quotations);
     }
+
 
     /**
      * @param $package
@@ -96,10 +111,21 @@ class CalculateService
 
         $rates = [];
         foreach ($quotations as $quotation) {
-            $rates[] = [
+            $volumes = [];
+            foreach($quotation->packages as $package) {
+                $volumes[] = [
+                    'width' => wc_get_dimension(floatval($package->dimensions->width), 'cm'),
+                    'length' => wc_get_dimension(floatval($package->dimensions->length), 'cm'),
+                    'height' => wc_get_dimension(floatval($package->dimensions->height), 'cm'),
+                    'weight' => wc_get_weight(floatval($package->weight), 'kg'),
+                ];
+            }
+
+            $rates[$quotation->id] = [
                 'id' => $quotation->id,
                 'method_id' => $quotation->id,
-                'label' => sprintf('%s, %s', $quotation->company->name, $quotation->name),
+                'label' => sprintf('%s %s', $quotation->company->name, $quotation->name),
+                'packages' => $volumes,
                 'cost' => (isset($quotation->price))
                     ? $quotation->price
                     : 0
