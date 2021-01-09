@@ -29,12 +29,17 @@ class HealthService
         add_action('woocommerce_init', function() use ($sellerService){
             $seller = $sellerService->get();
 
-            foreach($seller as $field => $value) {
+            if(empty($sellerService->getToken())) {
+                $notice = sprintf(
+                    "Você precisa informar seu token Melhor Envio nas <a href='%s'>configurações</a> do plugin Tessmann Cotação para o funcionamento correto. ",
+                    self::LINK_CONFIGURATION_TESSMANN);
+                NoticeHelper::addNotice($notice, 'error-notice');
+            }
 
+            foreach($seller as $field => $value) {
                 if ($field == 'complement') {
                     continue;
                 }
-
                 if (empty($value)) {
                     $notice = sprintf(
                         "Você precisa definir o campo '%s' nas <a href='%s'>configurações</a> do plugin Tessmann Cotação para o funcionamento correto. ",
