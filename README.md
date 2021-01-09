@@ -31,4 +31,8 @@ O plugin cria uma metodo de envio que extende as funcionalidades de cotação do
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/master/src/img/configuracao.png)
 
 Para enviar um pedido para o carrinho de compras basta acessar a lista de pedidos do WooCommerce, e clicar no botão adicionar, assim o pedido será enviado para o seu carrinho de compras do Melhor Envio, o fluxo posterior de comprar e impressão até o momento precisa ser realizado na plataforma do Melhor Envio.
-![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/master/src/img/pedidos.png)
+![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/master/src/img/pedidos.png).
+
+E você  pode acessar os dados como Protocolo, status e código de rastreio diretamente na página de detalhes do pedido do WooCommerce através de um Box Meta customizado.
+(https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
+
