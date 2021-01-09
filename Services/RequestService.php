@@ -5,7 +5,9 @@ namespace V3\Services;
 
 class RequestService
 {
-    const URL = 'https://api.melhorenvio.com/v2/me';
+    //const URL = 'https://api.melhorenvio.com/v2/me';
+
+    const URL = 'https://sandbox.melhorenvio.com.br/api/v2/me';
 
     const TIMEOUT = 600;
 
@@ -33,7 +35,7 @@ class RequestService
         $params = array(
             'headers' => $this->headers,
             'method'  => $typeRequest,
-            'body'    => json_encode($body),
+            'body'    => (!empty($body)) ? json_encode($body) : null,
             'timeout ' => self::TIMEOUT
         );
 
