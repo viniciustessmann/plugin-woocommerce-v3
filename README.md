@@ -1,98 +1,19 @@
-<img src="logo.png" width="300">
+# Cotações Tessmann
 
+Esse plugin foi desenvolvido para realizar cotações com a API pública do [Melhor Envio](https://melhorenvio.com.br/) e também para inserir os pedidos do WooCommerce no carrinho de compras do Melhor Envio. Esse plugin é um desenvolvimento independente do Melhor Envio, qualquer dúvida ou sugestão deve ser realizada na página do Github desse projeto pelo seguinte [Link](https://github.com/viniciustessmann/plugin-woocommerce-v3).
+A proposta do plugin é realizar as cotações e inserções do carrinho de compras de forma rápida e simples, caso você deseje mais funcionandades como por exemplo, classes de entregas, calculadora na tela do produto, areas de entregas, configuração independente para cada serviço de envio, sugiro utilizar o [Plugin ofical do Melhor Envio](https://wordpress.org/plugins/melhor-envio-cotacao/)
 
-> O framework front-end da [Melhor Envio](https://www.melhorenvio.com.br).
+# Transportadoras e serviços disponíveis 
+  - Correios Pac
+  - Correios Sedex
+  - Correios Mini Envios
+  - Jadlog Package
+  - Jadlog .Com
 
+### Installation
 
-Running
--------
+Instalando dependencias
 
-You can run the app locally by running these following commands:
-
-### Available Gulp commands
-
-#### Default - `yarn start` or `npm start`
-
-Run this commnad to compile and watch files running on [localhost:3000](http://localhost:3000)
-
-
-#### Build - `yarn run build` or `npm run build`
-
-Run this command to only compile files
-
-
-#### Clean - `yarn run clean` or `npm run clean`
-
-Run this command to delete the `public/` folder (same as `rm -rf public`)
-
-
-Structure
----------
-
-When you have all installed, the structure will look like this:
-
+```sh
+$ composer install
 ```
-gulpfile.babel.js/
-├── tasks/
-│   └── *.js
-├── index.js
-└── paths.js
-node_modules/
-src/
-├── copy/
-│   ├── fonts/
-│   │   └── *.{eot|svg|ttf|woff}
-│   └── **/*
-├── css/
-│   ├── components/
-│   │   └── *.styl
-│   ├── core/
-│   │   └── *.styl
-│   └── style.styl
-├── html/
-│   ├── app/
-│   │   ├── components/
-│   │   │   └── *.pug
-│   │   └── views/
-│   │       └── *.pug
-│   ├── components/
-│   │   └── *.pug
-│   ├── includes/
-│   │   └── *.pug
-│   ├── layouts/
-│   │   └── *.pug
-│   └── index.pug
-├── img/
-│   ├── backgrounds/
-│   │   └── *.{jpg|png|svg}
-│   ├── favicons/
-│   │   └── *.{png|svg}
-│   ├── sprite/
-│   │   └── *.svg
-│   └── *.{jpg|png|svg}
-└── js/
-    ├── app/
-    │   ├── index.js
-    │   └── *.js
-    ├── modules/
-    │   └── *.js
-    └── app.js
-.babelrc
-.editorconfig
-.env
-.eslintrc
-.gitattributes
-.gitignore
-.pug-lintrc
-.stylintrc
-content.json
-logo.png
-package.json
-README.md
-```
-
-
-License
--------
-
-© 2019 [Melhor Envio](https://www.melhorenvio.com.br)
