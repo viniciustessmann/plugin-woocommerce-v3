@@ -45,7 +45,9 @@ class OrdersService
         $body = array(
             'from' => $seller,
             'to' => $buyer,
-            //'agency' => $this->getAgencyToInsertCart($shippingMethodId),
+            'agency' => (ShippingMethod::isJadlog($method_selected))
+                ? $seller->agency_jadlog
+                : null,
             'service' => $method_selected,
             'products' => $products,
             'volumes' => $quotations[$method_selected]['packages'],
@@ -76,6 +78,10 @@ class OrdersService
         return $data;
     }
 
+    /**
+     * @param $order_id
+     * @return object
+     */
     public function get($order_id)
     {
         return (new RequestService())->request(
