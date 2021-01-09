@@ -1,17 +1,18 @@
 <?php
 
-use V3\Services\MenuService;
 use V3\Services\RouterService;
 use V3\Services\ShippingMethodService;
 use V3\Services\ColumnsListOrdersService;
 use V3\Services\ActionListOrderService;
+use V3\Services\HealthService;
+use V3\Services\BoxMetaService;
 
 require __DIR__ . '/vendor/autoload.php';
 
 /*
-Plugin Name: Tessmann Envio
-Plugin URI:
-Description: Plugin para cotação e compra de fretes utilizando a API pública do Melhor Envio.
+Plugin Name: Cotações Tessmann
+Plugin URI: https://github.com/viniciustessmann/plugin-woocommerce-v3
+Description: Esse plugin foi desenvolvido para realizar cotações com a API pública do Melhor Envio e também para inserir os pedidos do WooCommerce no carrinho de compras do Melhor Envio. 
 Version: 1.0.0
 Author: Vinícius Schlee Tessmann
 Author URI:
@@ -39,19 +40,23 @@ if (!class_exists('MelhorEnvioPlugin')) {
     {
         public static function init()
         {
-            //MenuService::create(plugin_dir_path(__FILE__));
+            HealthService::check();
             RouterService::init();
             ShippingMethodService::load();
             ColumnsListOrdersService::insertColumnCart();
             ActionListOrderService::actions();
+            BoxMetaService::add();
 
             add_action( 'admin_enqueue_scripts', function(){
                 wp_enqueue_script(
                     'actions-me',
-                    '/wp-content/plugins/plugin-woocommerce-v3/src/js/actions.js'
+                    '/wp-content/plugins/tessmann-cotacoes/src/js/actions.js'
                 );
             });
+
+
         }
+
     }
 
     MelhorEnvioPlugin::init();
