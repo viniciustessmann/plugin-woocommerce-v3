@@ -5,6 +5,7 @@ use V3\Services\ShippingMethodService;
 use V3\Services\ColumnsListOrdersService;
 use V3\Services\ActionListOrderService;
 use V3\Services\HealthService;
+use V3\Services\BoxMetaService;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -44,6 +45,7 @@ if (!class_exists('MelhorEnvioPlugin')) {
             ShippingMethodService::load();
             ColumnsListOrdersService::insertColumnCart();
             ActionListOrderService::actions();
+            BoxMetaService::add();
 
             add_action( 'admin_enqueue_scripts', function(){
                 wp_enqueue_script(
@@ -51,7 +53,10 @@ if (!class_exists('MelhorEnvioPlugin')) {
                     '/wp-content/plugins/tessmann-cotacoes/src/js/actions.js'
                 );
             });
+
+
         }
+
     }
 
     MelhorEnvioPlugin::init();

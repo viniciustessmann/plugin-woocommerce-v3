@@ -12,6 +12,8 @@ class OrdersService
 
     const ROUTE_MELHOR_ENVIO_ADD_CART = '/cart';
 
+    const ROUTE_MELHOR_ENVIO_DETAIL_ORDER = '/orders/search?q=';
+
     /**
      * @param $post_id
      * @return false|object
@@ -73,4 +75,14 @@ class OrdersService
 
         return $data;
     }
+
+    public function get($order_id)
+    {
+        return (new RequestService())->request(
+            Self::ROUTE_MELHOR_ENVIO_DETAIL_ORDER . $order_id,
+            'GET',
+            []
+        );
+    }
+
 }
