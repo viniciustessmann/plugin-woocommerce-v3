@@ -19,7 +19,7 @@ class BuyerService
     {
         return (object) [
             "name" => sprintf("%s %s", $order->shipping_first_name, $order->shipping_last_name),
-            'phone' => ExtractNumberHelper::extract(get_post_meta($order->id, '_billing_cellphone', true)),
+            'phone' => ExtractNumberHelper::extract(get_post_meta($order->id, '_billing_phone', true)),
             "email" => $order->get_billing_email(),
             "document" => ExtractNumberHelper::extract(get_post_meta($order->id, '_billing_cpf')),
             "address" => $order->shipping_address_1,

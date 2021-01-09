@@ -60,7 +60,7 @@ class OrdersService
                 'platform' => self::PLATAFORM
             )
         );
-
+        
         $data = (new RequestService())->request(
             Self::ROUTE_MELHOR_ENVIO_ADD_CART,
             'POST',

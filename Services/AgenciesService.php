@@ -25,9 +25,10 @@ class AgenciesService
 
         if (!empty($agencies)) {
             foreach ($agencies as $agency) {
-                $response[$agency->code] = $agency->name;
+                $response[$agency->id] = $agency->name;
             }
         }
+
         return $response;
     }
 }
