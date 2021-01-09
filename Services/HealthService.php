@@ -8,6 +8,8 @@ class HealthService
 {
     const PLUGIN_CHECKOUT_NEED = 'woocommerce-extra-checkout-fields-for-brazil/woocommerce-extra-checkout-fields-for-brazil.php';
 
+    const LINK_CONFIGURATION_TESSMANN = '/wp-admin/admin.php?page=wc-settings&tab=shipping&section=tessmann-shipping';
+
     /**
      * @return bool
      */
@@ -34,11 +36,12 @@ class HealthService
                 }
 
                 if (empty($value)) {
-                    $linkConfigurations = '/wp-admin/admin.php?page=wc-settings&tab=shipping&section=tessmann-shipping';
-                    $notice = sprintf("Você precisa definir o campo '%s' nas <a href='%s'>configurações</a> do plugin Tessmann Cotação para o funcionamento correto. ", $field, $linkConfigurations);
+                    $notice = sprintf(
+                        "Você precisa definir o campo '%s' nas <a href='%s'>configurações</a> do plugin Tessmann Cotação para o funcionamento correto. ",
+                        $field,
+                        self::LINK_CONFIGURATION_TESSMANN);
                     NoticeHelper::addNotice($notice, 'error-notice');
                 }
-
             }
         });
     }
