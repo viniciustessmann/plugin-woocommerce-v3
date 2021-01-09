@@ -10,10 +10,17 @@ A proposta do plugin é realizar as cotações e inserções do carrinho de comp
   - Jadlog Package
   - Jadlog .Com
 
-### Installation
-
-Instalando dependencias
-
+### Instalação
+Clone do repositório dentro do diretório /wp-content/plugins
+```sh
+$ cd cotacoes-tessmann
+```
+```sh
+$ git clone https://github.com/viniciustessmann/plugin-woocommerce-v3.git
+```
 ```sh
 $ composer install
 ```
+
+### Como usar?
+
