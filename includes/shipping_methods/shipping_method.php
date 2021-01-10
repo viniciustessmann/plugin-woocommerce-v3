@@ -29,7 +29,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                     $this->init();
 
-                    $this->enabled = isset($this->settings['enabled']) ? $this->settings['enabled'] : 'yes';
                     $this->title = isset($this->settings['title']) ? $this->settings['title'] : 'Melhor Envio';
                     $this->token = isset($this->settings['token']) ? $this->settings['token'] : null;
                     $this->postal_code = isset($this->settings['postal_code']) ? $this->settings['postal_code'] : null;
@@ -67,12 +66,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 function init_form_fields()
                 {
                     $this->form_fields = array(
-                        'enabled' => array(
-                            'title' => 'Ativo',
-                            'type' => 'checkbox',
-                            'description' => 'Ativar esse serviço',
-                            'default' => 'yes'
-                        ),
                         'name' => array(
                           'title' => 'Nome',
                           'type' => 'text',

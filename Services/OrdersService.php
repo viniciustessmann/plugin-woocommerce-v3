@@ -4,7 +4,6 @@ namespace V3\Services;
 
 use V3\Models\Order;
 use V3\Models\ShippingMethod;
-use V3\Services\SellerDataService;
 
 class OrdersService
 {
@@ -60,7 +59,7 @@ class OrdersService
                 'platform' => self::PLATAFORM
             )
         );
-        
+
         $data = (new RequestService())->request(
             Self::ROUTE_MELHOR_ENVIO_ADD_CART,
             'POST',
