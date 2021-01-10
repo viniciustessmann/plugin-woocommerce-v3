@@ -37,7 +37,7 @@ class BoxMetaService
                     }
                 }
                 echo '<p>Gostou do plugin? Me pague um café ;)</p>';
-                echo '<img style="width:100%" src="https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/picpay.jpeg" />';
+                echo '<img style="width:80%; margin-left:10%;" src="https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/picpay.jpeg" />';
 
 
             }, 'shop_order', 'side', 'high' );
