@@ -2,8 +2,8 @@
 
 namespace V3\Models;
 
-class ShippingMethod{
-
+class ShippingMethod
+{
     const CORREIOS_PAC = 'Correios PAC';
 
     const CORREIOS_PAC_ID = 1;
@@ -45,5 +45,14 @@ class ShippingMethod{
                 return self::CORREIOS_SEDEX_ID;
         }
 
+    }
+
+    /**
+     * @param $method_id
+     * @return bool
+     */
+    public static function isJadlog($method_id)
+    {
+        return in_array($method_id, [self::JADLOG_PACKAGE_ID, self::JADLOG_COM_ID]);
     }
 }

@@ -2,6 +2,7 @@
 
 use V3\Services\CalculateService;
 use V3\Helpers\NormalizePostalCodeHelper;
+use V3\Services\AgenciesService;
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
@@ -28,7 +29,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                     $this->init();
 
-                    $this->enabled = isset($this->settings['enabled']) ? $this->settings['enabled'] : 'yes';
                     $this->title = isset($this->settings['title']) ? $this->settings['title'] : 'Melhor Envio';
                     $this->token = isset($this->settings['token']) ? $this->settings['token'] : null;
                     $this->postal_code = isset($this->settings['postal_code']) ? $this->settings['postal_code'] : null;
@@ -42,6 +42,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->district = isset($this->settings['district']) ? $this->settings['district'] : null;
                     $this->city = isset($this->settings['city']) ? $this->settings['city'] : null;
                     $this->state = isset($this->settings['state']) ? $this->settings['state'] : null;
+                    $this->agency_jadlog = isset($this->settings['agency_jadlog']) ? $this->settings['agency_jadlog'] : null;
+
                 }
 
                 /**
@@ -64,12 +66,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 function init_form_fields()
                 {
                     $this->form_fields = array(
-                        'enabled' => array(
-                            'title' => 'Ativo',
-                            'type' => 'checkbox',
-                            'description' => 'Ativar esse serviço',
-                            'default' => 'yes'
-                        ),
                         'name' => array(
                           'title' => 'Nome',
                           'type' => 'text',
@@ -129,8 +125,13 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'title' => 'token',
                             'type' => 'textarea',
                             'description' => "token de acesso do Melhor Envio, você pode gerar seu token pelo seguinte <a target='_blank' href='https://melhorenvio.com.br/painel/gerenciar/tokens'>link</a>"
+                        ),
+                        'agency_jadlog' => array(
+                            'title' => 'Agência Jadlog',
+                            'type' => 'select',
+                            'options' => (new AgenciesService())->getAgenciesJadlog(),
+                            'description' => 'Agência Jadlog padrão para realizar envios com Jadlog. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
                         )
-
                     );
                 }
 

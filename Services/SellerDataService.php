@@ -28,6 +28,11 @@ class SellerDataService
     public function getToken()
     {
         $data = $this->getShippingMethodTessmann();
+
+        if (empty($data)) {
+            return false;
+        }
+
         return  $data['token'];
     }
 
