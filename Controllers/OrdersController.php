@@ -22,7 +22,7 @@ class OrdersController
             }
 
             $dataOrder = (new OrdersService())->addCart($post_id);
-
+            
             return wp_send_json([
                 'success' => true,
                 'order_id' => $dataOrder->id,
@@ -30,7 +30,6 @@ class OrdersController
             ], 200);
 
         } catch (\Exception $exception) {
-
              return wp_send_json([
                  'success' => false,
                  'message' => 'Ocorreu um erro ao enviar o pedido para o carrinho de compras'
