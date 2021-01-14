@@ -27,11 +27,4 @@ class OrderProductsService
         }
         return $products;
     }
-
-    public function getVolumeByOrder($order)
-    {
-
-    }
-
-
 }

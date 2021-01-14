@@ -6,6 +6,7 @@ use V3\Services\ColumnsListOrdersService;
 use V3\Services\ActionListOrderService;
 use V3\Services\HealthService;
 use V3\Services\BoxMetaService;
+use V3\Helpers\PathHelper;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -50,13 +51,10 @@ if (!class_exists('MelhorEnvioPlugin')) {
             add_action( 'admin_enqueue_scripts', function(){
                 wp_enqueue_script(
                     'actions-me',
-                    '/wp-content/plugins/tessmann-cotacoes/src/js/actions.js'
+                    PathHelper::getPathRootPlugin() . '/src/js/actions.js'
                 );
             });
-
-
         }
-
     }
 
     MelhorEnvioPlugin::init();
