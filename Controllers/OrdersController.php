@@ -12,15 +12,16 @@ class OrdersController
     public function addCart()
     {
         try {
-            if (empty($_POST['post_id'])) {
+          
+            $post_id  = sanitize_text_field($_POST['post_id']);
+
+            if (empty($post_id)) {
                 return wp_send_json([
                     'message' => 'informar o parametro "post_id"'
                 ], 500);
             }
 
-            $post_id  = $_POST['post_id'];
-
-            $dataOrder = (new OrdersService())->addCart($$post_id);
+            $dataOrder = (new OrdersService())->addCart($post_id);
 
             return wp_send_json([
                 'success' => true,
