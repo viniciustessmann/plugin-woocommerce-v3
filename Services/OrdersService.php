@@ -1,9 +1,9 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
-use V3\Models\Order;
-use V3\Models\ShippingMethod;
+use Tessmann\Models\Order;
+use Tessmann\Models\ShippingMethod;
 
 class OrdersService
 {

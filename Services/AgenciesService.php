@@ -1,6 +1,6 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
 class AgenciesService
 {

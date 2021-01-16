@@ -1,10 +1,10 @@
 <?php
 
-namespace V3\Models;
+namespace Tessmann\Models;
 
 /**
  * Class Order
- * @package V3\Models
+ * @package Tessmann\Models
  */
 class Order
 {

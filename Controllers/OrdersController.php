@@ -1,8 +1,8 @@
 <?php
 
-namespace V3\Controllers;
+namespace Tessmann\Controllers;
 
-use V3\Services\OrdersService;
+use Tessmann\Services\OrdersService;
 
 class OrdersController
 {

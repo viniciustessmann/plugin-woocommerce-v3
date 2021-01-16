@@ -1,12 +1,12 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
-use V3\Helpers\ExtractNumberHelper;
+use Tessmann\Helpers\ExtractNumberHelper;
 
 /**
  * Class BuyerService
- * @package V3\Services
+ * @package Tessmann\Services
  */
 class BuyerService
 {

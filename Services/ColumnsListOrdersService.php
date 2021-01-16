@@ -1,10 +1,10 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
 /**
  * Class ColumnsListOrdersService
- * @package V3\Services
+ * @package Tessmann\Services
  */
 class ColumnsListOrdersService
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace V3\Helpers;
+namespace Tessmann\Helpers;
 
 /**
  * Notice helper class

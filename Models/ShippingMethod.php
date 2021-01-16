@@ -1,6 +1,6 @@
 <?php
 
-namespace V3\Models;
+namespace Tessmann\Models;
 
 class ShippingMethod
 {

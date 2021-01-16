@@ -1,6 +1,6 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
 class MenuService
 {
@@ -15,8 +15,8 @@ class MenuService
         if (is_admin()) {
             add_action('admin_menu', function () use ($path) {
                 add_menu_page(
-                    'Melhor Envio V3',
-                    'Melhor Envio V3',
+                    'Melhor Envio Tessmann',
+                    'Melhor Envio Tessmann',
                     'manage_options',
                     $path . 'admin/view.php',
                     null,

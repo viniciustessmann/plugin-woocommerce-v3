@@ -1,11 +1,11 @@
 <?php
 
-namespace V3\Services;
-use V3\Helpers\NormalizePostalCodeHelper;
+namespace Tessmann\Services;
+use Tessmann\Helpers\NormalizePostalCodeHelper;
 
 /**
  * Class CalculateService
- * @package V3\Services
+ * @package Tessmann\Services
  */
 class CalculateService
 {

@@ -1,8 +1,8 @@
 <?php
 
-use V3\Services\CalculateService;
-use V3\Helpers\NormalizePostalCodeHelper;
-use V3\Services\AgenciesService;
+use Tessmann\Services\CalculateService;
+use Tessmann\Helpers\NormalizePostalCodeHelper;
+use Tessmann\Services\AgenciesService;
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
@@ -172,7 +172,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
     function add_melhorenvio_shipping_method($methods)
     {
-        $methods['melhor-envio-v3'] = 'MelhorEnvio_Shipping_Method';
+        $methods['melhor-envio-Tessmann'] = 'MelhorEnvio_Shipping_Method';
         return $methods;
     }
 

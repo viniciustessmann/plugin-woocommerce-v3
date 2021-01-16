@@ -1,12 +1,12 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
-use V3\Models\Order;
+use Tessmann\Models\Order;
 
 /**
  * Class ActionListOrderService
- * @package V3\Services
+ * @package Tessmann\Services
  */
 class ActionListOrderService
 {

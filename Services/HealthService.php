@@ -1,8 +1,8 @@
 <?php
 
-namespace V3\Services;
+namespace Tessmann\Services;
 
-use V3\Helpers\NoticeHelper;
+use Tessmann\Helpers\NoticeHelper;
 
 class HealthService
 {
