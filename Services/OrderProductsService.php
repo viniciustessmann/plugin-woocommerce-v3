@@ -11,18 +11,18 @@ class OrderProductsService
     public function getProductByOrder($order)
     {
         $products = [];
-        foreach ( $order->get_items() as $item_id => $_product ) {
+        foreach ( $order->get_items() as $item_id => $OrderProduct ) {
 
-            $product = $_product->get_product();
+            $product = $OrderProduct->get_product();
 
             $products[] = [
-                'name' => $_product->get_name(),
+                'name' => $OrderProduct->get_name(),
                 'unitary_value' => floatval($product->get_price()),
                 'width' => wc_get_dimension(floatval($product->get_width()), 'cm'),
                 'length' => wc_get_dimension(floatval($product->get_length()), 'cm'),
                 'height' => wc_get_dimension(floatval($product->get_height()), 'cm'),
                 'weight' => wc_get_weight(floatval($product->get_weight()), 'kg'),
-                'quantity' => intval($_product->get_quantity())
+                'quantity' => intval($OrderProduct->get_quantity())
             ];
         }
         return $products;

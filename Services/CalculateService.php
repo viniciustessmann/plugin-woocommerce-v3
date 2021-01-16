@@ -64,15 +64,15 @@ class CalculateService
     {
         $products = [];
         foreach ($package['contents'] as $values) {
-            $_product = $values['data'];
+            $product = $values['data'];
             $products[] = [
-                'name' => $_product->get_name(),
-                'unitary_value' => floatval($_product->get_price()),
-                'insurance_value' => floatval($_product->get_price()) * intval($values['quantity']),
-                'width' => wc_get_dimension(floatval($_product->get_width()), 'cm'),
-                'length' => wc_get_dimension(floatval($_product->get_length()), 'cm'),
-                'height' => wc_get_dimension(floatval($_product->get_height()), 'cm'),
-                'weight' => wc_get_weight(floatval($_product->get_weight()), 'kg'),
+                'name' => $product->get_name(),
+                'unitary_value' => floatval($product->get_price()),
+                'insurance_value' => floatval($product->get_price()) * intval($values['quantity']),
+                'width' => wc_get_dimension(floatval($product->get_width()), 'cm'),
+                'length' => wc_get_dimension(floatval($product->get_length()), 'cm'),
+                'height' => wc_get_dimension(floatval($product->get_height()), 'cm'),
+                'weight' => wc_get_weight(floatval($product->get_weight()), 'kg'),
                 'quantity' => intval($values['quantity'])
             ];
         }
