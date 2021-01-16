@@ -36,8 +36,10 @@ class BoxMetaService
                         }
                     }
                 }
+
+                $imagePicPay = plugin_dir_url( dirname( __FILE__ ) ) . 'src/img/picpay.jpeg';
                 echo '<p>Gostou do plugin? Me pague um café ;)</p>';
-                echo '<img style="width:80%; margin-left:10%;" src="https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/picpay.jpeg" />';
+                echo '<img style="width:80%; margin-left:10%;" src="'. $imagePicPay .'" />';
 
 
             }, 'shop_order', 'side', 'high' );

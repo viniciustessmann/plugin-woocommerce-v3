@@ -9,10 +9,10 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "V3\\Controllers\\": "Controllers/",
-            "V3\\Models\\": "Models/",
-            "V3\\Services\\": "Services/",
-            "V3\\Helpers\\": "Helpers/"
+            "Tessmann\\Controllers\\": "Controllers/",
+            "Tessmann\\Models\\": "Models/",
+            "Tessmann\\Services\\": "Services/",
+            "Tessmann\\Helpers\\": "Helpers/"
         }
     }
 }
