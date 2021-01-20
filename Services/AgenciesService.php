@@ -13,13 +13,27 @@ class AgenciesService
      */
     public function getAgenciesJadlog()
     {
+
+        $sellerData = (new SellerDataService())->get();
+
         $route = urldecode(sprintf(
-            "%s?company=%s",
+            "%s?company=%s&state=%s",
             self::ROUTE_GET_AGENCIES,
-            self::JADLOG_ID
+            self::JADLOG_ID,
+            $sellerData->state
         ));
 
         $agencies = (new RequestService())->request($route, 'GET', []);
+
+        if (empty($agencies)) {
+            $route = urldecode(sprintf(
+                "%s?company=%s",
+                self::ROUTE_GET_AGENCIES,
+                self::JADLOG_ID
+            ));
+    
+            $agencies = (new RequestService())->request($route, 'GET', []);
+        }
 
         $response = [];
 

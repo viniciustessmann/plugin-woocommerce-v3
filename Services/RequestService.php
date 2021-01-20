@@ -9,7 +9,7 @@ class RequestService
 
     //const URL = 'https://sandbox.melhorenvio.com.br/api/v2/me';
 
-    const TIMEOUT = 600;
+    const TIMEOUT = 60;
 
     protected $headers;
 

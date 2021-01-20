@@ -31,17 +31,10 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                     $this->title = isset($this->settings['title']) ? $this->settings['title'] : 'Melhor Envio';
                     $this->token = isset($this->settings['token']) ? $this->settings['token'] : null;
-                    $this->postal_code = isset($this->settings['postal_code']) ? $this->settings['postal_code'] : null;
                     $this->name = isset($this->settings['name']) ? $this->settings['name'] : null;
                     $this->phone = isset($this->settings['phone']) ? $this->settings['phone'] : null;
                     $this->email = isset($this->settings['email']) ? $this->settings['email'] : null;
                     $this->document = isset($this->settings['document']) ? $this->settings['document'] : null;
-                    $this->address = isset($this->settings['address']) ? $this->settings['address'] : null;
-                    $this->complement = isset($this->settings['complement']) ? $this->settings['complement'] : null;
-                    $this->number = isset($this->settings['number']) ? $this->settings['number'] : null;
-                    $this->district = isset($this->settings['district']) ? $this->settings['district'] : null;
-                    $this->city = isset($this->settings['city']) ? $this->settings['city'] : null;
-                    $this->state = isset($this->settings['state']) ? $this->settings['state'] : null;
                     $this->agency_jadlog = isset($this->settings['agency_jadlog']) ? $this->settings['agency_jadlog'] : null;
 
                 }
@@ -67,7 +60,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 {
                     $this->form_fields = array(
                         'name' => array(
-                          'title' => 'Nome',
+                          'title' => 'Nome do remente',
                           'type' => 'text',
                           'description' => 'Nome do remetente exibido na etiqueta'
                         ),
@@ -79,47 +72,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         'email' => array(
                             'title' => 'E-mail',
                             'type' => 'text',
-                            'description' => ''
+                            'description' => 'E-mail do remente da etiqueta'
                         ),
                         'document' => array(
-                            'title' => 'Documento',
+                            'title' => 'CPF',
                             'type' => 'text',
-                            'description' => ''
-                        ),
-                        'address' => array(
-                            'title' => 'Endereço',
-                            'type' => 'text',
-                            'description' => ''
-                        ),
-                        'number' => array(
-                            'title' => 'Número',
-                            'type' => 'text',
-                            'description' => ''
-                        ),
-                        'complement' => array(
-                            'title' => 'Complemento',
-                            'type' => 'text',
-                            'description' => ''
-                        ),
-                        'district' => array(
-                            'title' => 'Bairro',
-                            'type' => 'text',
-                            'description' => ''
-                        ),
-                        'city' => array(
-                            'title' => 'Cidade',
-                            'type' => 'text',
-                            'description' => ''
-                        ),
-                        'state' => array(
-                            'title' => 'Estado',
-                            'type' => 'text',
-                            'description' => ''
-                        ),
-                        'postal_code' => array(
-                            'title' => 'CEP de origem',
-                            'type' => 'text',
-                            'description' => 'Cep de origem para realizar a cotação de frete'
+                            'description' => 'O documento deve ser informado para envios de transportadoras privadas'
                         ),
                         'token' => array(
                             'title' => 'token',
@@ -130,7 +88,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'title' => 'Agência Jadlog',
                             'type' => 'select',
                             'options' => (new AgenciesService())->getAgenciesJadlog(),
-                            'description' => 'Agência Jadlog padrão para realizar envios com Jadlog. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
+                            'description' => 'Agência Jadlog padrão do seu estado para realizar envios com Jadlog. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
                         )
                     );
                 }
