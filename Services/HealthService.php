@@ -37,9 +37,6 @@ class HealthService
             }
 
             foreach($seller as $field => $value) {
-                if ($field == 'complement') {
-                    continue;
-                }
                 if (empty($value)) {
                     $notice = sprintf(
                         "Você precisa definir o campo '%s' nas <a href='%s'>configurações</a> do plugin Tessmann Cotação para o funcionamento correto. ",

@@ -40,18 +40,20 @@ if (!class_exists('MelhorEnvioPlugin')) {
     {
         public static function init()
         {
-            HealthService::check();
-            RouterService::init();
-            ShippingMethodService::load();
-            ColumnsListOrdersService::insertColumnCart();
-            ActionListOrderService::actions();
-            BoxMetaService::add();
+            add_action('woocommerce_init', function() {
+                HealthService::check();
+                RouterService::init();
+                ShippingMethodService::load();
+                ColumnsListOrdersService::insertColumnCart();
+                ActionListOrderService::actions();
+                BoxMetaService::add();
 
-            add_action( 'admin_enqueue_scripts', function(){
-                wp_enqueue_script(
-                    'actions-me',
-                    plugin_dir_url(__FILE__) . 'src/js/actions.js'
-                );
+                add_action( 'admin_enqueue_scripts', function(){
+                    wp_enqueue_script(
+                        'actions-me',
+                        plugin_dir_url(__FILE__) . 'src/js/actions.js'
+                    );
+                });
             });
         }
     }

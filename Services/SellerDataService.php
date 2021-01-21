@@ -16,7 +16,7 @@ class SellerDataService
      * @return objects
      */
     public function get()
-    {
+    {   
         $store_address     = get_option( 'woocommerce_store_address' );
         $store_address_2   = get_option( 'woocommerce_store_address_2' );
         $store_city        = get_option( 'woocommerce_store_city' );
@@ -30,10 +30,18 @@ class SellerDataService
         $data = $this->getShippingMethodTessmann();
 
         return (object) [
-            "name" =>  $data['name'],
-            "phone" => ExtractNumberHelper::extract($data['phone']),
-            "email" => $data['email'],
-            "document" => ExtractNumberHelper::extract($data['document']),
+            "name" =>  (!empty($data['name'])) 
+                ? $data['name'] 
+                : null,
+            "phone" => (!empty($data['phone'])) 
+                ? ExtractNumberHelper::extract($data['phone'])
+                : null,
+            "email" => (!empty($data['email'])) 
+                ? $data['email'] 
+                : null,
+            "document" => (!empty($data['document'])) 
+                ? ExtractNumberHelper::extract($data['document']) 
+                : null,
             "address" => $store_address,
             "number" => $store_address_2,
             "city" => $store_city,

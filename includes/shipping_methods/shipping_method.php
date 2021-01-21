@@ -36,6 +36,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->email = isset($this->settings['email']) ? $this->settings['email'] : null;
                     $this->document = isset($this->settings['document']) ? $this->settings['document'] : null;
                     $this->agency_jadlog = isset($this->settings['agency_jadlog']) ? $this->settings['agency_jadlog'] : null;
+                    $this->enableds = isset($this->settings['enableds']) ? $this->settings['enableds'] : null;
 
                 }
 
@@ -47,8 +48,9 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 function init()
                 {
-                    $this->init_form_fields();
                     $this->init_settings();
+                    $this->init_form_fields();
+                    
                     add_action('woocommerce_update_options_shipping_' . $this->id, array($this, 'process_admin_options'));
                 }
 
@@ -89,7 +91,19 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'type' => 'select',
                             'options' => (new AgenciesService())->getAgenciesJadlog(),
                             'description' => 'Agência Jadlog padrão do seu estado para realizar envios com Jadlog. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
-                        )
+                        ),
+                        'enableds' => array(
+                            'title' => 'Serviços disponíveis para cotação',
+                            'description' => 'Pressione Ctrl e clique nos serviços que deseja selecionar',
+                            'type' => 'multiselect',
+                            'options' => array(
+                                1 => 'Correios PAC',
+                                2 => 'Correios Sedex',
+                                3 => 'Jadlog .Package',
+                                4 => 'Jadlog .Com',
+                                17 => 'Correios MINI' 
+                            )
+                       )
                     );
                 }
 
@@ -103,16 +117,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 public function calculate_shipping($package = array())
                 {
-                    if(empty($this->token) || empty($this->postal_code)) {
+                    if(empty($this->token)) {
                         return false;
                     }
 
-                    $postalcode = NormalizePostalCodeHelper::get($this->postal_code);
-
-                    $rates = (new CalculateService())->calculate(
-                        $package,
-                        $postalcode
-                    );
+                    $rates = (new CalculateService($package, $this->enableds))->calculate();
 
                     if (empty($rates)) {
                         return false;

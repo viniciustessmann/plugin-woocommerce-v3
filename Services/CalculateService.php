@@ -13,37 +13,47 @@ class CalculateService
 
     const SERVICES = '1,2,3,4,17';
 
+    protected $package;
+
+    protected $services_selecteds;
+
     /**
-     * @param $package
-     * @param $from
+     * class constructor
+     */
+    public function __construct($package, $services)
+    {
+        $this->package = $package;
+
+        $this->services_selecteds = $services;
+    }
+
+    /**
      * @return array
      */
-    public function calculate($package, $from)
+    public function calculate()
     {
-        if(empty($package['destination']['postcode'])) {
+        if(empty($this->package['destination']['postcode'])) {
             return false;
         }
 
-        $products = $this->getProducts($package);
+        $products = $this->getProducts($this->package);
 
         return $this->calculateByProducts(
             $products,
-            $from,
-            NormalizePostalCodeHelper::get($package['destination']['postcode'])
+            NormalizePostalCodeHelper::get($this->package['destination']['postcode']),
+            $services
         );
     }
 
     /**
-     * @param $products
-     * @param $from
-     * @param $to
+     * @param array $products
+     * @param string  $to
      * @return array
      */
-    public function calculateByProducts($products, $from, $to)
+    public function calculateByProducts($products, $to)
     {
         $payload = $this->createPayload(
             $products,
-            $from,
             NormalizePostalCodeHelper::get($to)
         );
 
@@ -60,10 +70,10 @@ class CalculateService
      * @param $package
      * @return array
      */
-    public function getProducts($package)
+    public function getProducts()
     {
         $products = [];
-        foreach ($package['contents'] as $values) {
+        foreach ($this->package['contents'] as $values) {
             $product = $values['data'];
             $products[] = [
                 'name' => $product->get_name(),
@@ -81,21 +91,24 @@ class CalculateService
     }
 
     /**
-     * @param $products
-     * @param $from
-     * @param $to
+     * @param array $products
+     * @param string $to
      * @return object
      */
-    public function createPayload($products, $from, $to)
+    public function createPayload($products, $to)
     {
+        $dataSeller = (new SellerDataService())->get();
+
+        $services = $this->getFilterServices();
+
         return (object) [
             'from' => (object) [
-                'postal_code' => $from,
+                'postal_code' =>  NormalizePostalCodeHelper::get($dataSeller->postal_code),
             ],
             'to' => (object) [
                 'postal_code' => $to
             ],
-            'services' => self::SERVICES,
+            'services' => $services,
             'products' => (object) $products,
             'options' => [
                 "insurance_value" => $this->getInsuranceValueByProducts($products),
@@ -157,6 +170,25 @@ class CalculateService
             $value += floatval($product['unitary_value'] * $product['quantity']);
         }
         return $value;
+    }
+
+    /**
+     * @retrun string $services;
+     */
+    private function getFilterServices()
+    {
+        $services_id = self::SERVICES;
+
+        if (!empty($this->services_selecteds) && is_array($this->services_selecteds)) {
+            $services_id = [];
+            foreach ((array) array_values($this->services_selecteds) as $key => $service_id) {
+                $services_id[] = $this->services_selecteds[$key];
+            }
+
+            $services_id = implode(',', $services_id);
+        }
+
+        return $services_id;
     }
 
 }
