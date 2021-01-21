@@ -32,11 +32,14 @@ class OrdersService
         $method_selected = (new ShippingMethod())
             ->getCode($methodTitle);
 
-        $quotations = (new CalculateService([],$buyer->postal_code))
+        $quotations = (new CalculateService([], [$method_selected]))
             ->calculateByProducts($products, $seller->postal_code);
 
         if(empty($quotations[$method_selected]['packages'])) {
-            return false;
+            return (object) [
+                'error' => true,
+                'message' => 'Não foi possível obter a cotação do Melhor Envio, tente novamente mais tarde'
+            ];
         }
 
         $body = array(
@@ -58,14 +61,32 @@ class OrdersService
             )
         );
 
+        if (!ShippingMethod::isJadlog($method_selected) && empty($body['agency'])) {
+            return (object) [
+               'error' => true,
+               'message' => 'você precisa infomrmr a agência Jadlog nas configurações do plugin'
+            ];
+        }
+
+
         $data = (new RequestService())->request(
             Self::ROUTE_MELHOR_ENVIO_ADD_CART,
             'POST',
             $body
         );
 
+        if (!empty($data->error)) {
+            return (object) [
+                'error' => true,
+                'message' => $data->error
+            ];
+        }
+
         if(empty($data->id)) {
-            return false;
+            return (object) [
+                'error' => true,
+                'message' => 'Ocorreu um erro ao enviar o pedido para o carrinho de compras'
+            ];
         }
 
         $orderEntity = (new Order($post_id));

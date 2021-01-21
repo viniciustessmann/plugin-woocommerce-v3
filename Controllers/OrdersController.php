@@ -22,6 +22,20 @@ class OrdersController
             }
 
             $dataOrder = (new OrdersService())->addCart($post_id);
+
+            if (isset($dataOrder->error)) {
+                return wp_send_json([
+                    'success' => false,
+                    'message' => $dataOrder->message
+                ], 500);
+            }
+
+            if (empty($dataOrder->id)) {
+                return wp_send_json([
+                    'success' => false,
+                    'message' => 'Ocorreu um erro ao enviar o pedido para o carrinho de compras'
+                ], 500);
+            }
             
             return wp_send_json([
                 'success' => true,
@@ -32,7 +46,7 @@ class OrdersController
         } catch (\Exception $exception) {
              return wp_send_json([
                  'success' => false,
-                 'message' => 'Ocorreu um erro ao enviar o pedido para o carrinho de compras'
+                 'message' => 'Ocorreu um erro não esperado'
              ], 500);
         }
     }

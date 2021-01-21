@@ -47,7 +47,10 @@ class SellerDataService
             "city" => $store_city,
             "country_id" => $store_country,
             'state' => $store_state,
-            "postal_code" => NormalizePostalCodeHelper::get(get_option( 'woocommerce_store_postcode' ))
+            "postal_code" => NormalizePostalCodeHelper::get(get_option( 'woocommerce_store_postcode' )),
+            "agency_jadlog" => (!empty($data['agency_jadlog'])) 
+            ? $data['agency_jadlog'] 
+            : null
         ];
     }
 

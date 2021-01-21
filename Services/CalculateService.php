@@ -78,7 +78,7 @@ class CalculateService
             $products[] = [
                 'name' => $product->get_name(),
                 'unitary_value' => floatval($product->get_price()),
-                'insurance_value' => floatval($product->get_price()) * intval($values['quantity']),
+                'insurance_value' => floatval($product->get_price()),
                 'width' => wc_get_dimension(floatval($product->get_width()), 'cm'),
                 'length' => wc_get_dimension(floatval($product->get_length()), 'cm'),
                 'height' => wc_get_dimension(floatval($product->get_height()), 'cm'),
@@ -126,37 +126,51 @@ class CalculateService
      */
     public function filterToRate($quotations)
     {
+        if (!is_array($quotations)) {
+            return $this->handleRates($quotations);
+        }
+
         if (empty($quotations)) {
             return [];
         }
 
         $rates = [];
         foreach ($quotations as $quotation) {
-            $volumes = [];
+            $rates[] = $this->handleRates($quotation);
 
-            if (!empty($quotation->packages)) {
-                foreach ($quotation->packages as $package) {
-                    $volumes[] = [
-                        'width' => wc_get_dimension(floatval($package->dimensions->width), 'cm'),
-                        'length' => wc_get_dimension(floatval($package->dimensions->length), 'cm'),
-                        'height' => wc_get_dimension(floatval($package->dimensions->height), 'cm'),
-                        'weight' => wc_get_weight(floatval($package->weight), 'kg'),
-                    ];
-                }
-
-                $rates[$quotation->id] = [
-                    'id' => $quotation->id,
-                    'method_id' => $quotation->id,
-                    'label' => sprintf('%s %s', $quotation->company->name, $quotation->name),
-                    'packages' => $volumes,
-                    'cost' => (isset($quotation->price))
-                        ? $quotation->price
-                        : 0
-                ];
-            }
         }
 
         return $rates;
+    }
+
+    /**
+     * 
+     */
+    private function handleRates($quotation)
+    {
+        $rate  = [];
+        if (!empty($quotation->packages)) {
+            foreach ($quotation->packages as $package) {
+                $volumes[] = [
+                    'width' => wc_get_dimension(floatval($package->dimensions->width), 'cm'),
+                    'length' => wc_get_dimension(floatval($package->dimensions->length), 'cm'),
+                    'height' => wc_get_dimension(floatval($package->dimensions->height), 'cm'),
+                    'weight' => wc_get_weight(floatval($package->weight), 'kg'),
+                ];
+            }
+
+            $rate[$quotation->id] = [
+                'id' => $quotation->id,
+                'method_id' => $quotation->id,
+                'label' => sprintf('%s %s', $quotation->company->name, $quotation->name),
+                'packages' => $volumes,
+                'cost' => (isset($quotation->price))
+                    ? $quotation->price
+                    : 0
+            ];
+        }
+
+        return $rate;
     }
 
     /**
@@ -167,7 +181,7 @@ class CalculateService
     {
         $value = 0;
         foreach ($products as $product) {
-            $value += floatval($product['unitary_value'] * $product['quantity']);
+            $value = $value + floatval($product['unitary_value'] * $product['quantity']);
         }
         return $value;
     }

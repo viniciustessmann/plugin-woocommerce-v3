@@ -10,9 +10,9 @@ jQuery('document').ready(function() {
         }).done((response) => {
             jQuery(this).hide();
             jQuery('.receive-protocol-' + post_id).append( '<p style="font-size:10px; margin-top: 10px;">Protocolo: <b>' + response.protocol + '</b></p>' );
-        }).fail(() => {
+        }).fail((xhr, status, error) => {
             jQuery(this).display;
-            alert('Ocorreu um erro ao enviar o pedido ' + post_id + ' para o carrinho de compras do Melhor Envio');
+            alert(xhr.responseJSON.message);
         });
     })
 })

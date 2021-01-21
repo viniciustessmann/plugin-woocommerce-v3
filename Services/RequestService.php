@@ -39,14 +39,6 @@ class RequestService
             'timeout ' => self::TIMEOUT
         );
 
-        /**if ($route == "/shipment/calculate") {
-            echo '<pre>';
-            var_dump(wp_remote_retrieve_body(
-                wp_remote_post(self::URL . $route, $params)
-            ));
-            die;
-        }*/
-
         return json_decode(
             wp_remote_retrieve_body(
                 wp_remote_post(self::URL . $route, $params)
