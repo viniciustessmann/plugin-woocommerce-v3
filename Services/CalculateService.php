@@ -78,7 +78,7 @@ class CalculateService
             $products[] = [
                 'name' => $product->get_name(),
                 'unitary_value' => floatval($product->get_price()),
-                'insurance_value' => floatval($product->get_price()),
+                //'insurance_value' => floatval($product->get_price()),
                 'width' => wc_get_dimension(floatval($product->get_width()), 'cm'),
                 'length' => wc_get_dimension(floatval($product->get_length()), 'cm'),
                 'height' => wc_get_dimension(floatval($product->get_height()), 'cm'),
@@ -101,6 +101,8 @@ class CalculateService
 
         $services = $this->getFilterServices();
 
+        $total = $this->getInsuranceValueByProducts($products);
+
         return (object) [
             'from' => (object) [
                 'postal_code' =>  NormalizePostalCodeHelper::get($dataSeller->postal_code),
@@ -111,7 +113,7 @@ class CalculateService
             'services' => $services,
             'products' => (object) $products,
             'options' => [
-                "insurance_value" => $this->getInsuranceValueByProducts($products),
+                "insurance_value" => ($total <= 1000) ? $total : floatval(1000),
                 'receipt' => false,
                 'own_hand' => false,
                 'reverse' => false,

@@ -18,7 +18,7 @@ class OrderProductsService
             $products[] = [
                 'name' => $OrderProduct->get_name(),
                 'unitary_value' => floatval($product->get_price()),
-                'insurance_value' => floatval($product->get_price()),
+                //'insurance_value' => floatval($product->get_price()),
                 'width' => wc_get_dimension(floatval($product->get_width()), 'cm'),
                 'length' => wc_get_dimension(floatval($product->get_length()), 'cm'),
                 'height' => wc_get_dimension(floatval($product->get_height()), 'cm'),

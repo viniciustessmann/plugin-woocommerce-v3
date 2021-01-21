@@ -49,6 +49,8 @@ class OrdersService
             ];
         }
 
+        $total = $order->get_subtotal();
+
         $body = array(
             'from' => $seller,
             'to' => $buyer,
@@ -59,7 +61,7 @@ class OrdersService
             'products' => $products,
             'volumes' => $quotations[$method_selected]['packages'],
             'options' => array(
-                "insurance_value" => $order->get_subtotal(),
+                "insurance_value" => ($total <= 1000) ? $total : floatval(1000),
                 "receipt" => false,
                 "own_hand" => false,
                 "collect" => false,
