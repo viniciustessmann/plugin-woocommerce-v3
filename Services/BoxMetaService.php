@@ -24,7 +24,7 @@ class BoxMetaService
 
                     $order_id = $order->getOrderId();
                     if (!empty($order_id)) {
-                        $detail = (new OrdersService())->get($order_id);
+                        $detail = (new OrdersService())->get($post->ID, $order_id);
 
                         if (!empty(end($detail)->status)) {
                             echo '<p>Status: <b>' . end($detail)->status . '</b></p>';

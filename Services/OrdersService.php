@@ -100,13 +100,15 @@ class OrdersService
      * @param $order_id
      * @return object
      */
-    public function get($order_id)
+    public function get($post_id, $order_id)
     {
-        return (new RequestService())->request(
+        $data =  (new RequestService())->request(
             Self::ROUTE_MELHOR_ENVIO_DETAIL_ORDER . $order_id,
             'GET',
             []
         );
+
+        return $data;
     }
 
 }

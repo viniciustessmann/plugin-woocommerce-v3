@@ -62,4 +62,15 @@ class Order
         return get_post_meta($this->post_id, self::POST_META_ORDER_PROTOCOL_MELHOR_ENVIO, true);
     }
 
+    /**
+     * @return mixed
+     */
+    public function destroy()
+    {
+        return (
+            delete_post_meta($this->post_id, self::POST_META_ORDER_ID_MELHOR_ENVIO) ||
+            delete_post_meta($this->post_id, self::POST_META_ORDER_PROTOCOL_MELHOR_ENVIO)
+        );
+    }
+
 }
