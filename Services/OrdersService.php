@@ -35,7 +35,14 @@ class OrdersService
         $quotations = (new CalculateService([], [$method_selected]))
             ->calculateByProducts($products, $seller->postal_code);
 
-        if(empty($quotations[$method_selected]['packages'])) {
+        
+        if (!empty($quotations['id']) && $quotations['id'] == $method_selected) {
+            $quotation = $quotations;
+            $quotations = [];
+            $quotations[$method_selected] = $quotation;
+        }
+
+        if(is_array($quotations) && empty($quotations[$method_selected]['packages'])) {
             return (object) [
                 'error' => true,
                 'message' => 'Não foi possível obter a cotação do Melhor Envio, tente novamente mais tarde'

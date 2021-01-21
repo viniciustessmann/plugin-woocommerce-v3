@@ -136,7 +136,7 @@ class CalculateService
 
         $rates = [];
         foreach ($quotations as $quotation) {
-            $rates[] = $this->handleRates($quotation);
+            $rates[$quotation->id] = $this->handleRates($quotation);
 
         }
 
@@ -159,7 +159,7 @@ class CalculateService
                 ];
             }
 
-            $rate[$quotation->id] = [
+            return [
                 'id' => $quotation->id,
                 'method_id' => $quotation->id,
                 'label' => sprintf('%s %s', $quotation->company->name, $quotation->name),
@@ -170,7 +170,7 @@ class CalculateService
             ];
         }
 
-        return $rate;
+        return false;
     }
 
     /**

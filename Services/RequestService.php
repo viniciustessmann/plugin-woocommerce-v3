@@ -2,6 +2,7 @@
 
 namespace Tessmann\Services;
 
+use Tessmann\Models\Token;
 
 class RequestService
 {
@@ -18,7 +19,7 @@ class RequestService
         $this->headers = array(
             'Content-Type'  => 'application/json',
             'Accept'        => 'application/json',
-            'Authorization' => 'Bearer ' . (new SellerDataService())->getToken(),
+            'Authorization' => 'Bearer ' . (new Token())->get(),
         );
     }
 

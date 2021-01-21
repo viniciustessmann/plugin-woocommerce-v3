@@ -3,6 +3,7 @@
 use Tessmann\Services\CalculateService;
 use Tessmann\Helpers\NormalizePostalCodeHelper;
 use Tessmann\Services\AgenciesService;
+use Tessmann\Models\Token;
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
@@ -121,7 +122,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         return false;
                     }
 
-                    $rates = (new CalculateService($package, $this->enableds))->calculate();
+                    if(empty((new Token())->get())) {
+                        (new Token())->set($this->token);
+                    }
+
+                    $rates = (new CalculateService($package, $this->enableds))
+                        ->calculate();
 
                     if (empty($rates)) {
                         return false;
