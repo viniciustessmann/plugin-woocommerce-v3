@@ -32,10 +32,8 @@ class OrdersService
         $method_selected = (new ShippingMethod())
             ->getCode($methodTitle);
 
-        $quotations = (new CalculateService())->calculateByProducts(
-            $products,
-            $seller->postal_code,
-            $buyer->postal_code);
+        $quotations = (new CalculateService([],$buyer->postal_code))
+            ->calculateByProducts($products, $seller->postal_code);
 
         if(empty($quotations[$method_selected]['packages'])) {
             return false;
