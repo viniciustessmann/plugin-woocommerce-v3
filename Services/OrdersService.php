@@ -108,7 +108,7 @@ class OrdersService
             []
         );
 
-        if($data->error == "Not Found") {
+        if(isset($data->error) && $data->error == "Not Found") {
             return (new Order($post_id))->destroy();
         }
 

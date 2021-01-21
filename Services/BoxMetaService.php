@@ -26,11 +26,11 @@ class BoxMetaService
                     if (!empty($order_id)) {
                         $detail = (new OrdersService())->get($post->ID, $order_id);
 
-                        if (!empty(end($detail)->status)) {
+                        if (is_array($detail) && !empty(end($detail)->status)) {
                             echo '<p>Status: <b>' . end($detail)->status . '</b></p>';
                         }
 
-                        if (!empty(end($detail)->tracking)) {
+                        if (is_array($detail) && !empty(end($detail)->tracking)) {
                             $tracking = end($detail)->tracking;
                             echo 'Rastreio: <a target="_blank" href="https://www.melhorrastreio.com.br/rastreio/' . $tracking . '">' . $tracking . '</a>';
                         }
