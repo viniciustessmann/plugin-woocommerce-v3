@@ -70,7 +70,7 @@ class OrdersService
             )
         );
 
-        if (!ShippingMethod::isJadlog($method_selected) && empty($body['agency'])) {
+        if (ShippingMethod::isJadlog($method_selected) && empty($body['agency'])) {
             return (object) [
                'error' => true,
                'message' => 'você precisa infomrmr a agência Jadlog nas configurações do plugin'
