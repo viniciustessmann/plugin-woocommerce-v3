@@ -39,12 +39,11 @@ class ShippingMethod
                 return self::JADLOG_PACKAGE_ID;
             case self::JADLOG_COM:
                 return self::JADLOG_COM_ID;
-            case Self::CORREIOS_MINI:
+            case self::CORREIOS_MINI:
                 return self::CORREIOS_MINI_ID;
             default:
                 return self::CORREIOS_SEDEX_ID;
         }
-
     }
 
     /**

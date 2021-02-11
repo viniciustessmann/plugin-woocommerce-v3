@@ -23,7 +23,7 @@ class ActionListOrderService
             $protocol = (new Order($post_id))->getProtocol();
 
             if (empty($protocol)) {
-                echo '<button class="add-cart-me" data-id="' . $post_id . '">Adicionar</button>';
+                echo '<button style="font-size:10px;" class="add-cart-me" data-id="' . $post_id . '">Enviar para Melhor Envio</button>';
             } else {
                 echo '<p class="order-id-me-' . $post_id . '" style="font-size:10px; margin-top: 10px;">Protocolo: <b>' . $protocol . '</b></p>';
             }
