@@ -13,13 +13,13 @@ require __DIR__ . '/vendor/autoload.php';
 Plugin Name: Cotações Tessmann
 Plugin URI: https://github.com/viniciustessmann/plugin-woocommerce-v3
 Description: Esse plugin foi desenvolvido para realizar cotações com a API pública do Melhor Envio e também para inserir os pedidos do WooCommerce no carrinho de compras do Melhor Envio. 
-Version: 1.0.2
+Version: 1.0.4
 Author: Vinícius Schlee Tessmann
 Author URI:
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: baseplugin
-Tested up to: 5.0
+Tested up to: 6.0
 Requires PHP: 5.6
 WC requires at least: 4.0
 WC tested up to: 5.6
