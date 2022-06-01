@@ -10,11 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build # Remove or modify this step as needed
-      run: |
-        composer install
+      run:
+        composer install --no-dev
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: tessmann-envio # optional, remove if GitHub repo name matches SVN slug, including capitalization
+        SLUG: tessmann# optional, remove if GitHub repo name matches SVN slug, including capitalization.
