@@ -11,7 +11,7 @@ class OrdersService
 
     const ROUTE_MELHOR_ENVIO_ADD_CART = '/cart';
 
-    const ROUTE_MELHOR_ENVIO_DETAIL_ORDER = '/orders/search?q=';
+    const ROUTE_MELHOR_ENVIO_DETAIL_ORDER = '/orders/';
 
     /**
      * @param $post_id

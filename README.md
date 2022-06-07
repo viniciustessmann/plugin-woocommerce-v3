@@ -40,5 +40,8 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 
 == Changelog ==
 
+= 1.1.0 =
+* Adicionando fucionalidade de imprimir etiquetas
+
 = 1.0.18 =
 * Adição de informações sobre o serviço selecionado

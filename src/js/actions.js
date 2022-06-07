@@ -15,4 +15,22 @@ jQuery('document').ready(function() {
             alert(xhr.responseJSON.message);
         });
     })
+
+    jQuery('.print-ticket-me').click(function(event){
+        event.preventDefault();
+        jQuery(this).prop("disabled",true);
+        let post_id = jQuery(this).data('id');
+        jQuery.ajax({
+            type: "POST",
+            url:  ajaxurl + '?action=print_ticket',
+            data: {'post_id': post_id}
+        }).done((response) => {
+            jQuery(this).hide();
+            window.open(response.url, '_blank').focus();
+        }).fail((xhr, status, error) => {
+            jQuery(this).display;
+            alert(xhr.responseJSON.message);
+        });
+    })
+
 })
