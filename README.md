@@ -38,3 +38,7 @@ Para enviar um pedido para o carrinho de compras basta acessar a lista de pedido
 E você  pode acessar os dados como Protocolo, status e código de rastreio diretamente na página de detalhes do pedido do WooCommerce através de um Box Meta customizado.
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
+== Changelog ==
+
+= 1.0.18 =
+* Adição de informações sobre o serviço selecionado

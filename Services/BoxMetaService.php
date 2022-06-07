@@ -26,6 +26,21 @@ class BoxMetaService
                     if (!empty($order_id)) {
                         $detail = (new OrdersService())->get($post->ID, $order_id);
 
+
+                        if (is_array($detail) && isset(end($detail)->service)) {
+                            echo '<p>Serviço: <b>' . end($detail)->service->name . ' (' . end($detail)->service->company->name . ')</b></p>';
+                        }
+
+                        if (is_array($detail) && isset(end($detail)->volumes)) {
+                            echo '<p><b>Volumes:</b></p>';
+                            foreach (end($detail)->volumes as $volume) {
+                                echo '<p><b>Largura:</b>' . $volume->width . 'cm</p>';
+                                echo '<p><b>Altura:</b>' . $volume->height . 'cm</p>';
+                                echo '<p><b>Comprimento:</b>' . $volume->length . 'cm</p>';
+                                echo '<p><b>Peso:</b>' . $volume->weight . 'kg</p>';
+                            }
+                        }
+
                         if (is_array($detail) && !empty(end($detail)->status)) {
                             echo '<p>Status: <b>' . end($detail)->status . '</b></p>';
                         }

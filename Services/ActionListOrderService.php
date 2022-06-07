@@ -10,9 +10,6 @@ use Tessmann\Models\Order;
  */
 class ActionListOrderService
 {
-    /**
-     *
-     */
     public static function actions()
     {
         add_action( 'manage_shop_order_posts_custom_column' , function($column, $post_id) {
