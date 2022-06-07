@@ -15,6 +15,8 @@ class Order
 
     const POST_META_ORDER_PROTOCOL_MELHOR_ENVIO = 'protocol_melhor_envio';
 
+    const POST_META_ORDER_URL_PRINT_MELHOR_ENVIO = 'url_print_melhor_envio';
+
     protected $post_id;
 
     public function __construct($post_id)
@@ -47,6 +49,18 @@ class Order
     }
 
     /**
+     * @param $url
+     * @return false|mixed
+     */
+    public function setUrlPrint($url)
+    {
+        delete_post_meta($this->post_id, self::POST_META_ORDER_URL_PRINT_MELHOR_ENVIO);
+        return (add_post_meta($this->post_id, self::POST_META_ORDER_URL_PRINT_MELHOR_ENVIO, $url, true))
+            ? $url
+            : false;
+    }
+
+    /**
      * @return mixed
      */
     public function getOrderId()
@@ -60,6 +74,14 @@ class Order
     public function getProtocol()
     {
         return get_post_meta($this->post_id, self::POST_META_ORDER_PROTOCOL_MELHOR_ENVIO, true);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlPrint()
+    {
+        return get_post_meta($this->post_id, self::POST_META_ORDER_URL_PRINT_MELHOR_ENVIO, true);
     }
 
     /**
