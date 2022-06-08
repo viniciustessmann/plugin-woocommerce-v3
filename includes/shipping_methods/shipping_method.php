@@ -132,9 +132,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         return false;
                     }
 
-                    if(empty((new Token())->get())) {
-                        (new Token())->set($this->token);
-                    }
+                    (new Token())->set($this->token);
 
                     $rates = (new CalculateService($package, $this->enableds))
                         ->calculate();
