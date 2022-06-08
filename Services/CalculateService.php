@@ -60,7 +60,8 @@ class CalculateService
         $quotations = (new RequestService())->request(
             self::ROUTE_CALCULATE,
             'POST',
-            $payload);
+            $payload
+        );
 
         return $this->filterToRate($quotations);
     }

@@ -38,6 +38,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->document = isset($this->settings['document']) ? $this->settings['document'] : null;
                     $this->cnae = isset($this->settings['cnae']) ? $this->settings['cnae'] : null;
                     $this->agency_jadlog = isset($this->settings['agency_jadlog']) ? $this->settings['agency_jadlog'] : null;
+                    $this->agency_latam = isset($this->settings['agency_latam']) ? $this->settings['agency_latam'] : null;
                     $this->enableds = isset($this->settings['enableds']) ? $this->settings['enableds'] : null;
 
                 }
@@ -99,6 +100,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'options' => (new AgenciesService())->getAgenciesJadlog(),
                             'description' => 'Agência Jadlog padrão do seu estado para realizar envios com Jadlog. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
                         ),
+                        'agency_latam' => array(
+                            'title' => 'Agência LATAM Cargo',
+                            'type' => 'select',
+                            'options' => (new AgenciesService())->getAgenciesLatam(),
+                            'description' => 'Agência LATAM Cargo padrão do seu estado para realizar envios com LATAM Cargo. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
+                        ),
                         'enableds' => array(
                             'title' => 'Serviços disponíveis para cotação',
                             'description' => 'Pressione Ctrl e clique nos serviços que deseja selecionar',
@@ -108,11 +115,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                 2 => 'Correios Sedex',
                                 3 => 'Jadlog .Package',
                                 4 => 'Jadlog .Com',
-                                12 => 'LATAM CARGO éFácil',
+                                12 => 'LATAM Cargo éFácil',
                                 17 => 'Correios MINI',
                                 22 => 'Buslog Rodoviário',
-                                23 => 'Correios PAC Grandes volumes',
-                                24 => 'Correios SEDEC Grandes volumes'
+                                23 => 'Correios PAC GF',
+                                24 => 'Correios SEDEX GF'
                             )
                        )
                     );

@@ -12,6 +12,7 @@ use Tessmann\Helpers\ExtractNumberHelper;
 class SellerDataService
 {
     const KEY_SHIPPING_METHOD_TESSMANN = 'tessmann-shipping';
+    
     /**
      * @return objects
      */
@@ -30,17 +31,17 @@ class SellerDataService
         $data = $this->getShippingMethodTessmann();
 
         return (object) [
-            "name" =>  (!empty($data['name'])) 
-                ? $data['name'] 
+            "name" =>  (!empty($data['name'])) 
+                ? $data['name'] 
                 : null,
-            "phone" => (!empty($data['phone'])) 
-                ? ExtractNumberHelper::extract($data['phone'])
+            "phone" => (!empty($data['phone'])) 
+                ? ExtractNumberHelper::extract($data['phone'])
                 : null,
-            "email" => (!empty($data['email'])) 
-                ? $data['email'] 
+            "email" => (!empty($data['email'])) 
+                ? $data['email'] 
                 : null,
-            "document" => (!empty($data['document'])) 
-                ? ExtractNumberHelper::extract($data['document']) 
+            "document" => (!empty($data['document'])) 
+                ? ExtractNumberHelper::extract($data['document']) 
                 : null,
             "address" => $store_address,
             "economic_activity_code" => (!empty($data['cnae'])) 
@@ -49,11 +50,14 @@ class SellerDataService
             "number" => $store_address_2,
             "city" => $store_city,
             "country_id" => $store_country,
-            'state' => $store_state,
+            'state' => $store_state,
             "postal_code" => NormalizePostalCodeHelper::get(get_option( 'woocommerce_store_postcode' )),
-            "agency_jadlog" => (!empty($data['agency_jadlog'])) 
-            ? $data['agency_jadlog'] 
-            : null
+            "agency_jadlog" => (!empty($data['agency_jadlog'])) 
+                ? $data['agency_jadlog'] 
+                : null,
+            "agency_latam" => (!empty($data['agency_latam'])) 
+                ? $data['agency_latam'] 
+                : null
         ];
     }
 

@@ -34,7 +34,6 @@ class OrdersService
 
         $quotations = (new CalculateService([], [$method_selected]))
             ->calculateByProducts($products, $seller->postal_code);
-
         
         if (!empty($quotations['id']) && $quotations['id'] == $method_selected) {
             $quotation = $quotations;
@@ -51,12 +50,22 @@ class OrdersService
 
         $total = $order->get_subtotal();
 
+        $agency_id = null;
+
+        $company_shipping = ShippingMethod::howCompanyByMethod($method_selected);
+
+        if ($company_shipping == ShippingMethod::COMPANY_JADLOG) {
+            $agency_id = $seller->agency_jadlog;
+        }
+
+        if ($company_shipping == ShippingMethod::COMPANY_LATAM_CARGO) {
+            $agency_id = $seller->agency_latam;
+        }
+
         $body = array(
             'from' => $seller,
             'to' => $buyer,
-            'agency' => (ShippingMethod::isJadlog($method_selected))
-                ? $seller->agency_jadlog
-                : null,
+            'agency' => $agency_id,
             'service' => $method_selected,
             'products' => $products,
             'volumes' => $quotations[$method_selected]['packages'],
@@ -70,7 +79,7 @@ class OrdersService
             )
         );
 
-        if (ShippingMethod::isJadlog($method_selected) && empty($body['agency'])) {
+        if (in_array($company_shipping, [ShippingMethod::COMPANY_JADLOG, ShippingMethod::COMPANY_LATAM_CARGO]) && empty($body['agency'])) {
             return (object) [
                'error' => true,
                'message' => 'você precisa infomrmr a agência Jadlog nas configurações do plugin'

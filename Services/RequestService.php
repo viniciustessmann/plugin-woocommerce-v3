@@ -6,7 +6,7 @@ use Tessmann\Models\Token;
 
 class RequestService
 {
-    const URL = 'https://melhorenvio.com/api/v2/me';
+    const URL = 'https://api.melhorenvio.com/v2/me';
 
     // const URL = 'https://sandbox.melhorenvio.com.br/api/v2/me';
 
@@ -46,4 +46,5 @@ class RequestService
             )
         );
     }
+
 }
