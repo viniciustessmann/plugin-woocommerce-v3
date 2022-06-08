@@ -40,6 +40,13 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 
 == Changelog ==
 
+= 1.2.0 =
+* Adição de campo CNAE nos dados do vendedor.
+* Adição do serviço LATAM CARGO éFácil
+* Adição do serviço Buslog Rodoviário
+* Adição do serviço Correios PAC Grandes volumes
+* Adição do serviço Correios SEDEX Grandes volumes
+
 = 1.1.0 =
 * Adicionando fucionalidade de imprimir etiquetas
 

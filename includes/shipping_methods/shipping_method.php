@@ -36,6 +36,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->phone = isset($this->settings['phone']) ? $this->settings['phone'] : null;
                     $this->email = isset($this->settings['email']) ? $this->settings['email'] : null;
                     $this->document = isset($this->settings['document']) ? $this->settings['document'] : null;
+                    $this->cnae = isset($this->settings['cnae']) ? $this->settings['cnae'] : null;
                     $this->agency_jadlog = isset($this->settings['agency_jadlog']) ? $this->settings['agency_jadlog'] : null;
                     $this->enableds = isset($this->settings['enableds']) ? $this->settings['enableds'] : null;
 
@@ -82,6 +83,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'type' => 'text',
                             'description' => 'O documento deve ser informado para envios de transportadoras privadas'
                         ),
+                        'cnae' => array(
+                            'title' => 'CNAE',
+                            'type' => 'text',
+                            'description' => 'Classificação Nacional de Atividades Econômicas. É obrigatório para utilização de LATAM CARGO'
+                        ),
                         'token' => array(
                             'title' => 'token',
                             'type' => 'textarea',
@@ -98,11 +104,15 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'description' => 'Pressione Ctrl e clique nos serviços que deseja selecionar',
                             'type' => 'multiselect',
                             'options' => array(
-                                1 => 'Correios PAC',
-                                2 => 'Correios Sedex',
-                                3 => 'Jadlog .Package',
-                                4 => 'Jadlog .Com',
-                                17 => 'Correios MINI' 
+                                1 => 'Correios PAC',
+                                2 => 'Correios Sedex',
+                                3 => 'Jadlog .Package',
+                                4 => 'Jadlog .Com',
+                                12 => 'LATAM CARGO éFácil',
+                                17 => 'Correios MINI',
+                                22 => 'Buslog Rodoviário',
+                                23 => 'Correios PAC Grandes volumes',
+                                24 => 'Correios SEDEC Grandes volumes'
                             )
                        )
                     );
