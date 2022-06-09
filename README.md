@@ -16,8 +16,12 @@ A proposta do plugin é realizar as cotações e inserções do carrinho de comp
   - Correios Pac
   - Correios Sedex
   - Correios Mini Envios
+  - Correios PAC grandes formatos
+  - Correios Sedex grandes formatos
   - Jadlog Package
   - Jadlog .Com
+  - LATAM Cargo éFácil
+  - Buslog Rodoviário
 
 ### Instalação
 Clone do repositório dentro do diretório /wp-content/plugins
@@ -39,6 +43,13 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
 == Changelog ==
+
+= 1.2.0 =
+* Adição de campo CNAE nos dados do vendedor.
+* Adição do serviço LATAM CARGO éFácil
+* Adição do serviço Buslog Rodoviário
+* Adição do serviço Correios PAC Grandes volumes
+* Adição do serviço Correios SEDEX Grandes volumes
 
 = 1.1.0 =
 * Adicionando fucionalidade de imprimir etiquetas
