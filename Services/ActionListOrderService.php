@@ -2,6 +2,7 @@
 
 namespace Tessmann\Services;
 
+use Tessmann\Helpers\LoaderComponentHelper;
 use Tessmann\Models\Order;
 use Tessmann\Services\BoxMetaService;
 
@@ -24,7 +25,7 @@ class ActionListOrderService
 
             if (empty($protocol)) {
                 echo '<button class="button refund-items add-cart-me" data-id="' . $post_id . '">Adicionar</button>';
-                BoxMetaService::addLoader('add-cart-me', $post_id);
+                LoaderComponentHelper::add('add-cart-me', $post_id,25);
                 
             } else {
                 echo '<p class="order-id-me-' . $post_id . '" style="font-size:10px; margin-top: 10px;">Protocolo: <b>' . $protocol . '</b></p>';

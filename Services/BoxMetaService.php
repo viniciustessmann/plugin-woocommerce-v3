@@ -2,6 +2,7 @@
 
 namespace Tessmann\Services;
 
+use Tessmann\Helpers\LoaderComponentHelper;
 use Tessmann\Models\Order;
 
 class BoxMetaService
@@ -19,7 +20,7 @@ class BoxMetaService
                 if(empty($order->getOrderId())) {
                     echo '<p>Pedido não encontrado no Melhor Envio, você precisa enviar o pedido para o carrinho do Melhor Envio</p>';
                     echo '<p><button  class="add-cart-me button refund-items" data-id="' . $post->ID . '">Adicionar</button></p>';
-                    self::addLoader('add-cart-me', $post->ID);
+                    LoaderComponentHelper::add('add-cart-me', $post->ID, 50);
                     echo '<div class="receive-protocol-'. $post->ID .' "></div>';
 
                 } else {
@@ -78,12 +79,6 @@ class BoxMetaService
         echo '<img style="width:100px;" src="' . $imageService . '">';
     }
 
-    public static function addLoader($section, $post_id)
-    {
-        $loader = plugin_dir_url( dirname( __FILE__ ) ) . 'src/img/loader.gif';
-        echo '<img class="' . $section . '-loader-' . $post_id . '" src="' . $loader . '" style="width:20px; display:none;" />';
-    }
-
     public static function showStatus($detail)
     {
         if (is_object($detail) && !empty($detail->status)) {
@@ -134,7 +129,7 @@ class BoxMetaService
     {
         if (isset($detail->status) && $detail->status === 'pending') {
             echo '<p><button class="remove-cart-me button refund-items" data-id="' . $post_id . '">Remover do carrinho</button></p>';
-            self::addLoader('remove-cart-me', $post_id);
+            LoaderComponentHelper::add('remove-cart-me', $post_id, 50);
         }
     }
 
