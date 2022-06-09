@@ -16,8 +16,12 @@ A proposta do plugin é realizar as cotações e inserções do carrinho de comp
   - Correios Pac
   - Correios Sedex
   - Correios Mini Envios
+  - Correios PAC grandes formatos
+  - Correios Sedex grandes formatos
   - Jadlog Package
   - Jadlog .Com
+  - LATAM Cargo éFácil
+  - Buslog Rodoviário
 
 ### Instalação
 Clone do repositório dentro do diretório /wp-content/plugins
