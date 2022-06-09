@@ -1,8 +1,10 @@
 name: 'CI'
 
-on:
+on:  
+  push:
   pull_request:
-    - opened
+    branches:
+      - master
 
 jobs:
   release:
