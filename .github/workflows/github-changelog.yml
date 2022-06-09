@@ -1,5 +1,4 @@
-name: Update changelog
-
+name: Update changelog file
 on:
   push:
     branches:    
