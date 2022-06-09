@@ -1,35 +1,37 @@
+name: Update changelog
+
 on:
-  pull_request:
-    types: [ assigned, opened, synchronize, reopened ]
+  push:
+    branches:    
+      - 'master'
 
 jobs:
-  update_changelog:
-    name: Update and Commit Changelog
+  deploy:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+
     steps:
-      # Checkout git.
-      - uses: actions/checkout@v2
-        with:
-          ref: dev # checkout dev branch.
-          fetch-depth: 0 # fetch all history.
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-      #- run: git config --global user.email "your@email.com"
-      #- run: git config --global user.name "SomeUsername"
-
-      - name: Create Changelog Entry String
-        run: |
-          cl_entry="${{ github.event.pull_request.title }}  "
-          cl_entry="${cl_entry//'%'/'%25'}"
-          cl_entry="${cl_entry//$'\n'/'%0A'}"
-          cl_entry="${cl_entry//$'\r'/'%0D'}"
-          echo "::set-output name=content::$cl_entry"
+      - name: Update CHANGELOG
         id: changelog
+        uses: Requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
 
-      # Update changelog.
-      - run: |
-          echo "${{ steps.changelog.outputs.content }}" >> changelog-dev.md
-      # Commit changes.
-      #- run: git add changelog-dev.md
-      #- run: git commit -m "Update Changelog" || echo "No changes to commit"
-      #- run: git push origin dev
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          draft: false
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ github.token }}
+
+      - name: Commit CHANGELOG.md
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
+          file_pattern: CHANGELOG.md
