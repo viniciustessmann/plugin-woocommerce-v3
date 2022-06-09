@@ -33,4 +33,21 @@ jQuery('document').ready(function() {
         });
     })
 
+    jQuery('.remove-cart-me').click(function(event){
+        event.preventDefault();
+        jQuery(this).prop("disabled",true);
+        let post_id = jQuery(this).data('id');
+        jQuery.ajax({
+            type: "POST",
+            url:  ajaxurl + '?action=remove_cart',
+            data: {'post_id': post_id}
+        }).done((response) => {
+            jQuery(this).hide();
+            console.log(response);
+        }).fail((xhr, status, error) => {
+            jQuery(this).display;
+            alert(xhr.responseJSON.message);
+        });
+    })
+
 })

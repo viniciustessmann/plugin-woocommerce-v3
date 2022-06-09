@@ -18,6 +18,9 @@ class BoxMetaService
 
                 if(empty($order->getOrderId())) {
                     echo '<p>Pedido não encontrado no Melhor Envio, você precisa enviar o pedido para o carrinho do Melhor Envio</p>';
+                    echo '<p><button  class="add-cart-me" data-id="' . $post->ID . '">Adicionar</button></p>';
+                    echo '<div class="receive-protocol-'. $post->ID .' "></div>';
+
                 } else {
 
                     $protocol = $order->getProtocol();
@@ -41,6 +44,8 @@ class BoxMetaService
                         self::showStatus($detail);
 
                         self::showTracking($detail);
+
+                        self::removeCart($detail, $post->ID);
 
                         self::showButtonPrint($detail, $post->ID);
                     }
@@ -104,6 +109,13 @@ class BoxMetaService
         
         if (in_array($status, ['released'])) {
             echo '<p><button class="print-ticket-me" data-id="' . $post_id . '">Imprimir</button></p>';
+        }
+    }
+
+    public static function removeCart($detail, $post_id)
+    {
+        if (isset($detail->status) && $detail->status === 'pending') {
+            echo '<p><button  class="remove-cart-me" data-id="' . $post_id . '">Remover do carrinho</button></p>';
         }
     }
 
