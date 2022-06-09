@@ -1,0 +1,37 @@
+on:
+  pull_request:
+    branches:
+      - developer
+    types: [closed]
+
+jobs:
+  update_changelog:
+    name: Update and Commit Changelog
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      # Checkout git.
+      - uses: actions/checkout@v2
+        with:
+          ref: dev # checkout dev branch.
+          fetch-depth: 0 # fetch all history.
+
+      #- run: git config --global user.email "your@email.com"
+      #- run: git config --global user.name "SomeUsername"
+
+      - name: Create Changelog Entry String
+        run: |
+          cl_entry="${{ github.event.pull_request.title }}  "
+          cl_entry="${cl_entry//'%'/'%25'}"
+          cl_entry="${cl_entry//$'\n'/'%0A'}"
+          cl_entry="${cl_entry//$'\r'/'%0D'}"
+          echo "::set-output name=content::$cl_entry"
+        id: changelog
+
+      # Update changelog.
+      - run: |
+          echo "${{ steps.changelog.outputs.content }}" >> changelog-dev.md
+      # Commit changes.
+      #- run: git add changelog-dev.md
+      #- run: git commit -m "Update Changelog" || echo "No changes to commit"
+      #- run: git push origin dev
