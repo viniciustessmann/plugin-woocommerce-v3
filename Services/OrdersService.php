@@ -33,7 +33,7 @@ class OrdersService
             ->getCode($methodTitle);
 
         $quotations = (new CalculateService([], [$method_selected]))
-            ->calculateByProducts($products, $seller->postal_code);
+            ->calculateByProducts($products, $buyer->postal_code);
         
         if (!empty($quotations['id']) && $quotations['id'] == $method_selected) {
             $quotation = $quotations;
