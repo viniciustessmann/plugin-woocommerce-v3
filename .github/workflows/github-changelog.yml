@@ -1,8 +1,6 @@
 on:
   pull_request:
-    branches:
-      - developer
-    types: [closed]
+    types: [ assigned, opened, synchronize, reopened ]
 
 jobs:
   update_changelog:
