@@ -2,7 +2,9 @@
 
 namespace Tessmann\Services;
 
+use Tessmann\Helpers\LoaderComponentHelper;
 use Tessmann\Models\Order;
+use Tessmann\Services\BoxMetaService;
 
 /**
  * Class ActionListOrderService
@@ -22,7 +24,9 @@ class ActionListOrderService
             $urlPrint = (new Order($post_id))->getUrlPrint();
 
             if (empty($protocol)) {
-                echo '<button class="add-cart-me" data-id="' . $post_id . '">Adicionar</button>';
+                echo '<button class="button refund-items add-cart-me" data-id="' . $post_id . '">Adicionar</button>';
+                LoaderComponentHelper::add('add-cart-me', $post_id,25);
+                
             } else {
                 echo '<p class="order-id-me-' . $post_id . '" style="font-size:10px; margin-top: 10px;">Protocolo: <b>' . $protocol . '</b></p>';
 

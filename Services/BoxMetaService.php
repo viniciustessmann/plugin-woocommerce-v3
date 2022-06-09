@@ -2,6 +2,7 @@
 
 namespace Tessmann\Services;
 
+use Tessmann\Helpers\LoaderComponentHelper;
 use Tessmann\Models\Order;
 
 class BoxMetaService
@@ -18,7 +19,8 @@ class BoxMetaService
 
                 if(empty($order->getOrderId())) {
                     echo '<p>Pedido não encontrado no Melhor Envio, você precisa enviar o pedido para o carrinho do Melhor Envio</p>';
-                    echo '<p><button  class="add-cart-me" data-id="' . $post->ID . '">Adicionar</button></p>';
+                    echo '<p><button  class="add-cart-me button refund-items" data-id="' . $post->ID . '">Adicionar</button></p>';
+                    LoaderComponentHelper::add('add-cart-me', $post->ID, 50);
                     echo '<div class="receive-protocol-'. $post->ID .' "></div>';
 
                 } else {
@@ -29,6 +31,7 @@ class BoxMetaService
 
                     if (!empty($protocol)) {
                         echo '<p>Protocolo: <b>' . $protocol . '</b></p>';
+                        echo '<hr>';
                     }
 
                     $order_id = $order->getOrderId();
@@ -63,14 +66,24 @@ class BoxMetaService
     public static function showServiceName($detail)
     {
         if (is_object($detail) && $detail->service) {
-            echo '<p>Serviço: <b>' .$detail->service->name . ' (' .$detail->service->company->name . ')</b></p>';
+            self::getPathImageCompany($detail);
+            echo '<p>Serviço: <b>' .$detail->service->name .'</b></p>';
+            echo '<hr>';
         }
+    }
+
+    public static function getPathImageCompany($detail)
+    {
+        $company = str_replace(' ', '_', strtolower($detail->service->company->name));
+        $imageService = plugin_dir_url( dirname( __FILE__ ) ) . 'src/img/' . $company . '.png';
+        echo '<img style="width:100px;" src="' . $imageService . '">';
     }
 
     public static function showStatus($detail)
     {
         if (is_object($detail) && !empty($detail->status)) {
             echo '<p>Status: <b>' .$detail->status . '</b></p>';
+            echo '<hr>';
         }
     }
 
@@ -78,12 +91,10 @@ class BoxMetaService
     {
         if (is_object($detail) && isset($detail->volumes)) {
             echo '<p><b>Volumes:</b></p>';
-            foreach ($detail->volumes as $volume) {
-                echo '<p><b>Largura:</b>' . $volume->width . 'cm</p>';
-                echo '<p><b>Altura:</b>' . $volume->height . 'cm</p>';
-                echo '<p><b>Comprimento:</b>' . $volume->length . 'cm</p>';
-                echo '<p><b>Peso:</b>' . $volume->weight . 'kg</p>';
+            foreach ($detail->volumes as $key => $volume) {
+                echo sprintf("<p>%scm x A %scm x C %scm - %sKg</p>", $volume->width,  $volume->height,  $volume->length,  $volume->weight);
             }
+            echo '<hr>';
         }
     }
 
@@ -92,6 +103,7 @@ class BoxMetaService
         if (is_object($detail) && !empty($detail->tracking)) {
             $tracking =$detail->tracking;
             echo 'Rastreio: <a target="_blank" href="https://www.melhorrastreio.com.br/rastreio/' . $tracking . '">' . $tracking . '</a>';
+            echo '<hr>';
         }
     }
 
@@ -108,14 +120,16 @@ class BoxMetaService
         $status = $detail->status;
         
         if (in_array($status, ['released'])) {
-            echo '<p><button class="print-ticket-me" data-id="' . $post_id . '">Imprimir</button></p>';
+            echo '<p><button class="print-ticket-me button refund-items" data-id="' . $post_id . '">Imprimir</button></p>';
+            echo '<hr>';
         }
     }
 
     public static function removeCart($detail, $post_id)
     {
         if (isset($detail->status) && $detail->status === 'pending') {
-            echo '<p><button  class="remove-cart-me" data-id="' . $post_id . '">Remover do carrinho</button></p>';
+            echo '<p><button class="remove-cart-me button refund-items" data-id="' . $post_id . '">Remover do carrinho</button></p>';
+            LoaderComponentHelper::add('remove-cart-me', $post_id, 50);
         }
     }
 
