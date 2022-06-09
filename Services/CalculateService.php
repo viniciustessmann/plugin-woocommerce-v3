@@ -63,6 +63,10 @@ class CalculateService
             $payload
         );
 
+        // echo '<pre>';
+        // var_dump($quotations);
+        // die;
+
         return $this->filterToRate($quotations);
     }
 
