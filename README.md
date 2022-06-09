@@ -43,6 +43,8 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
 == Changelog ==
+= 1.3.0 =
+* Adição da função de remover um item do carrinho do Melhor Envio.
 
 = 1.2.0 =
 * Adição de campo CNAE nos dados do vendedor.

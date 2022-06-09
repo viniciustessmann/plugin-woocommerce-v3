@@ -126,7 +126,7 @@ class OrdersService
             []
         );
 
-        if(isset($data->error) && $data->error == "Not Found") {
+        if (isset($data->message) && $data->message === 'No query results for model [App\Order].') {
             return (new Order($post_id))->destroy();
         }
 

@@ -91,6 +91,7 @@ class Order
     {
         delete_post_meta($this->post_id, self::POST_META_ORDER_ID_MELHOR_ENVIO);
         delete_post_meta($this->post_id, self::POST_META_ORDER_PROTOCOL_MELHOR_ENVIO);
+        delete_post_meta($this->post_id, self::POST_META_ORDER_URL_PRINT_MELHOR_ENVIO);
 
         return true;
     }
