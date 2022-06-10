@@ -4,6 +4,7 @@ namespace Tessmann\Services;
 
 use Tessmann\Helpers\LoaderComponentHelper;
 use Tessmann\Models\Order;
+use Tessmann\Services\Orders\GetDataService;
 
 class BoxMetaService
 {
@@ -38,7 +39,7 @@ class BoxMetaService
 
                     if (!empty($order_id)) {
 
-                        $detail = (new OrdersService())->get($post->ID, $order_id);
+                        $detail = (new GetDataService())->get($post->ID);
 
                         self::showServiceName($detail);
 

@@ -3,7 +3,7 @@
 namespace Tessmann\Services;
 
 use Tessmann\Models\Order;
-use Tessmann\Services\OrdersService;
+use Tessmann\Services\Orders\GetDataService;
 use Tessmann\Services\RequestService;
 
 class RemoveCartService
@@ -20,7 +20,7 @@ class RemoveCartService
             return false;
         }
 
-        $detail = (new OrdersService())->get($post_id, $order_id);
+        $detail = (new GetDataService())->get($post_id);
 
         if (!isset($detail->id)) {
             return false;

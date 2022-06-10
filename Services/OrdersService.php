@@ -11,8 +11,6 @@ class OrdersService
 
     const ROUTE_MELHOR_ENVIO_ADD_CART = '/cart';
 
-    const ROUTE_MELHOR_ENVIO_DETAIL_ORDER = '/orders/';
-
     /**
      * @param $post_id
      * @return false|object
@@ -113,24 +111,4 @@ class OrdersService
 
         return $data;
     }
-
-    /**
-     * @param $order_id
-     * @return object
-     */
-    public function get($post_id, $order_id)
-    {
-        $data =  (new RequestService())->request(
-            Self::ROUTE_MELHOR_ENVIO_DETAIL_ORDER . $order_id,
-            'GET',
-            []
-        );
-
-        if (isset($data->message) && $data->message === 'No query results for model [App\Order].') {
-            return (new Order($post_id))->destroy();
-        }
-
-        return $data;
-    }
-
 }
