@@ -9,6 +9,7 @@ use Tessmann\Services\SellerDataService;
 use Tessmann\Services\BuyerService;
 use Tessmann\Services\CalculateService;
 use Tessmann\Services\RequestService;
+use Tessmann\Services\Orders\GetDataService;
 
 class CartService
 {
@@ -115,5 +116,32 @@ class CartService
         $orderEntity->setProtocol($data->protocol);
 
         return $data;
+    }
+
+    public function remove($post_id)
+    {
+        $order = new Order($post_id);
+
+        $order_id = $order->getOrderId();
+
+        if (!$order_id) {
+            return false;
+        }
+
+        $detail = (new GetDataService())->get($post_id);
+
+        if (!isset($detail->id)) {
+            return false;
+        }
+
+        $response =  (new RequestService())->request(self::ROUTE_MELHOR_ENVIO_ADD_CART . '/' . $detail->id, 'DELETE', []);
+
+        if (!empty($response)) {
+            return false;
+        }
+
+        $order->destroy();
+
+        return true;
     }
 }

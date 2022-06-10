@@ -2,7 +2,7 @@
 
 namespace Tessmann\Controllers;
 
-use Tessmann\Services\RemoveCartService;
+use Tessmann\Services\Orders\CartService;
 
 class RemoveCartController
 {
@@ -10,7 +10,7 @@ class RemoveCartController
     {
         try {
 
-            $result = (new RemoveCartService())->remove(sanitize_text_field($_POST['post_id']));
+            $result = (new CartService())->remove(sanitize_text_field($_POST['post_id']));
 
             if (!$result) {
                 return wp_send_json([

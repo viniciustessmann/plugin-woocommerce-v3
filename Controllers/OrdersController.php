@@ -2,7 +2,7 @@
 
 namespace Tessmann\Controllers;
 
-use Tessmann\Services\OrdersService;
+use Tessmann\Services\Orders\CartService;
 
 class OrdersController
 {
@@ -21,7 +21,7 @@ class OrdersController
                 ], 500);
             }
 
-            $dataOrder = (new OrdersService())->addCart($post_id);
+            $dataOrder = (new CartService())->add($post_id);
 
             if (isset($dataOrder->error)) {
                 return wp_send_json([
