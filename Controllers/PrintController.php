@@ -2,7 +2,7 @@
 
 namespace Tessmann\Controllers;
 
-use Tessmann\Services\PrintTicketService;
+use Tessmann\Services\Orders\PrintTicketService;
 
 class PrintController
 {

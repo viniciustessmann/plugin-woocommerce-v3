@@ -1,6 +1,6 @@
 <?php
 
-namespace Tessmann\Services;
+namespace Tessmann\Services\Orders;
 
 use Tessmann\Models\Order;
 use Tessmann\Services\GenerateTicketService;
