@@ -43,6 +43,10 @@ class BoxMetaService
                         self::showServiceName($detail);
 
                         self::showVolumes($detail);
+                        
+                        self::showOptionals($detail);
+
+                        self::showDeliveryTime($detail);
 
                         self::showStatus($detail);
 
@@ -94,6 +98,41 @@ class BoxMetaService
             foreach ($detail->volumes as $key => $volume) {
                 echo sprintf("<p>%scm x A %scm x C %scm - %sKg</p>", $volume->width,  $volume->height,  $volume->length,  $volume->weight);
             }
+            echo '<hr>';
+        }
+    }
+
+    public static function showOptionals($detail)
+    {
+        if (is_object($detail)) {
+            echo '<p><b>Opcionais:</b></p>';
+
+            $receipt = ($detail->receipt) ? 'sim' : 'não' ;
+            $own_hand = ($detail->own_hand) ? 'sim' : 'não' ;
+
+            echo '<p><b>Aviso de recebimento:</b> ' . $receipt . '</p>';
+            echo '<p><b>Mãos própria:</b> ' . $own_hand . '</p>';
+            echo '<hr>';
+        }
+    }
+
+    public static function showDeliveryTime($detail)
+    {
+        if (!empty($detail->delivery_min) && !empty($detail->delivery_max)) {
+
+            $min = ($detail->delivery_min > 1) ? $detail->delivery_min . ' dias' : $detail->delivery_min . ' dia';
+
+            $max = ($detail->delivery_max > 1) ? $detail->delivery_max . ' dias' : $detail->delivery_max . ' dia';
+
+            if ($min == $max) {
+                $delivery = $min;
+            }
+
+            if ($max > $min) {
+                $delivery = sprintf('Entre %s e %s', $min, $max);
+            }
+
+            echo '<p><b>Prazo de entrega:</b> ' . $delivery . '</p>';
             echo '<hr>';
         }
     }

@@ -43,6 +43,9 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
 == Changelog ==
+= 1.4.0 =
+* Adição de opcioanis de mãos próprias e aviso de recebimento.
+
 = 1.3.1 =
 * Adição da imagem da transportdora no detalhe do envio.
 * Adição de loader durante as requests para a API do Melhor Envio.

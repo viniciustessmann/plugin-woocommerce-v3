@@ -71,8 +71,8 @@ class OrdersService
             'volumes' => $quotations[$method_selected]['packages'],
             'options' => array(
                 "insurance_value" => ($total <= 1000) ? $total : floatval(1000),
-                "receipt" => false,
-                "own_hand" => false,
+                'receipt' => ($seller->receipt == 'yes') ? true : false,
+                'own_hand' => ($seller->own_hand == 'yes') ? true : false,
                 "collect" => false,
                 "non_commercial" => true,
                 'platform' => self::PLATAFORM
