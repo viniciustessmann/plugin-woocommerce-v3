@@ -37,6 +37,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->email = isset($this->settings['email']) ? $this->settings['email'] : null;
                     $this->document = isset($this->settings['document']) ? $this->settings['document'] : null;
                     $this->cnae = isset($this->settings['cnae']) ? $this->settings['cnae'] : null;
+                    $this->receipt = isset($this->settings['receipt']) ? $this->settings['receipt'] : 'no';
+                    $this->own_hand = isset($this->settings['own_hand']) ? $this->settings['own_hand'] : 'no';
                     $this->agency_jadlog = isset($this->settings['agency_jadlog']) ? $this->settings['agency_jadlog'] : null;
                     $this->agency_latam = isset($this->settings['agency_latam']) ? $this->settings['agency_latam'] : null;
                     $this->enableds = isset($this->settings['enableds']) ? $this->settings['enableds'] : null;
@@ -105,6 +107,16 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             'type' => 'select',
                             'options' => (new AgenciesService())->getAgenciesLatam(),
                             'description' => 'Agência LATAM Cargo padrão do seu estado para realizar envios com LATAM Cargo. Você pode encontra as agências pelo <a href="https://melhorenvio.com.br/mapa" target="_blank">mapa</a>'
+                        ),
+                        'receipt' => array(
+                            'title' => 'Aviso de recebimento',
+                            'type' => 'checkbox',
+                            'default' => 'no'
+                        ),
+                        'own_hand' => array(
+                            'title' => 'Mãos própria',
+                            'type' => 'checkbox',
+                            'default' => 'no'
                         ),
                         'enableds' => array(
                             'title' => 'Serviços disponíveis para cotação',

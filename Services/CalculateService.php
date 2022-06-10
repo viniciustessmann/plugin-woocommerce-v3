@@ -115,8 +115,8 @@ class CalculateService
             'products' => (object) $products,
             'options' => [
                 "insurance_value" => ($total <= 1000) ? $total : floatval(1000),
-                'receipt' => false,
-                'own_hand' => false,
+                'receipt' => ($dataSeller->receipt == 'yes') ? true : false,
+                'own_hand' => ($dataSeller->own_hand == 'yes') ? true : false,
                 'reverse' => false,
                 'non_commercial' => true,
             ]
