@@ -1,11 +1,16 @@
 <?php
 
-namespace Tessmann\Services;
+namespace Tessmann\Services\Orders;
 
 use Tessmann\Models\Order;
 use Tessmann\Models\ShippingMethod;
+use Tessmann\Services\OrderProductsService;
+use Tessmann\Services\SellerDataService;
+use Tessmann\Services\BuyerService;
+use Tessmann\Services\CalculateService;
+use Tessmann\Services\RequestService;
 
-class OrdersService
+class CartService
 {
     const PLATAFORM = 'Tessmann shipping V1';
 
@@ -15,7 +20,7 @@ class OrdersService
      * @param $post_id
      * @return false|object
      */
-    public function addCart($post_id)
+    public function add($post_id)
     {
         $order = wc_get_order($post_id);
 
