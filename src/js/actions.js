@@ -102,6 +102,45 @@ jQuery('document').ready(function() {
         });
     })
 
+    jQuery('.receive-template-order').on('click', '.add-balance-me', function(event){
+
+        event.preventDefault();
+
+        jQuery(this).hide();
+
+        jQuery('.box-add-balance').show();
+    });
+
+    jQuery('.receive-template-order').on('click', '.form-add-balance', function(event){
+
+        event.preventDefault();
+
+        let post_id = jQuery(this).data('id');
+
+        let value = jQuery('.balance-me-input').val();
+
+        let gateway = jQuery('.gateway-me-input').val();
+
+        jQuery(this).hide();
+
+        jQuery('.add-balance-me-loader-' + post_id).show();
+
+        jQuery.ajax({
+            type: "POST",
+            url:  ajaxurl + '?action=add_balance',
+            data: {'value': value, 'gateway': gateway}
+        }).done((response) => {
+            jQuery('.add-balance-me-loader-' + post_id).hide();
+            jQuery('.box-add-balance').hide();
+            jQuery('.add-balance-me').show();
+            jQuery('.form-add-balance').show();
+            window.open(response.redirect).focus();
+        }).fail(() => {
+            alert('Ocorreu um erro ao inserir saldo');
+        });
+        
+    });
+
     function addCart(post_id)
     {
         return new Promise((resolve, reject) => {

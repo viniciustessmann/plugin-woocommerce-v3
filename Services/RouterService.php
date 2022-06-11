@@ -2,6 +2,7 @@
 
 namespace Tessmann\Services;
 
+use Tessmann\Controllers\AddBalanceController;
 use Tessmann\Controllers\OrdersController;
 use Tessmann\Controllers\PayTicketController;
 use Tessmann\Controllers\PrintController;
@@ -12,6 +13,8 @@ class RouterService
 {
     public static function init()
     {
+        $addBalanceController = new AddBalanceController();
+
         $ordersController = new OrdersController();
 
         $payTicketController = new PayTicketController();
@@ -21,6 +24,8 @@ class RouterService
         $removeCartController = new RemoveCartController();
 
         $orderTemplateController = new OrderTemplateController();
+
+        add_action('wp_ajax_add_balance', [$addBalanceController, 'add']);
 
         add_action('wp_ajax_add_cart', [$ordersController, 'addCart']);
 
