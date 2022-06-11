@@ -43,6 +43,9 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
 == Changelog ==
+= 1.4.2 =
+* Melhorias na exibição de dados do pedido.
+
 = 1.4.1 =
 * Melhorias na estrutura do código fonte.
 

@@ -14,7 +14,7 @@ class BoxMetaService
 
                 global $post;
 
-                TemplateService::get($post);
+                echo TemplateService::get($post);
 
             }, 'shop_order', 'side', 'high' );
         });

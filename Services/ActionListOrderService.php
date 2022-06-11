@@ -24,8 +24,8 @@ class ActionListOrderService
             $urlPrint = (new Order($post_id))->getUrlPrint();
 
             if (empty($protocol)) {
-                echo '<button class="button refund-items add-cart-me" data-id="' . $post_id . '">Adicionar</button>';
-                LoaderComponentHelper::add('add-cart-me', $post_id,25);
+                echo '<button class="button refund-items add-cart-me-list" data-id="' . $post_id . '">Adicionar</button>';
+                echo LoaderComponentHelper::add('add-cart-me-list', $post_id,25);
                 
             } else {
                 echo '<p class="order-id-me-' . $post_id . '" style="font-size:10px; margin-top: 10px;">Protocolo: <b>' . $protocol . '</b></p>';

@@ -31,7 +31,9 @@ class CartService
 
         $buyer = (new BuyerService())->getBuyerByOrder($order);
 
-        $methodTitle = end($order->get_items( 'shipping' ))->get_name();
+        $items_shipping = $order->get_items( 'shipping' );
+
+        $methodTitle = end($items_shipping)->get_name();
 
         $method_selected = (new ShippingMethod())
             ->getCode($methodTitle);

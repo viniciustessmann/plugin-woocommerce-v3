@@ -14,102 +14,122 @@ class TemplateService
 
         $detail = (new GetDataService())->get($post->ID);
 
-        if(empty($order->getOrderId())) {
-            echo '<p>Pedido não encontrado no Melhor Envio, você precisa enviar o pedido para o carrinho do Melhor Envio</p>';
-            echo '<p><button  class="add-cart-me button refund-items" data-id="' . $post->ID . '">Adicionar</button></p>';
-            LoaderComponentHelper::add('add-cart-me', $post->ID, 50);
-            echo '<div class="receive-protocol-'. $post->ID .' "></div>';
+        $html = '';
 
-        } else {
+        $html .= '<div class="receive-template-order">';
 
-            $protocol = $order->getProtocol();
+        if (empty($order->getOrderId())) {
+            $html .= '<p>Pedido não encontrado no Melhor Envio, você precisa enviar o pedido para o carrinho do Melhor Envio</p>';
+            $html .= '<p><button  class="add-cart-me button refund-items" data-id="' . $post->ID . '">Adicionar</button></p>';
+            $html .= LoaderComponentHelper::add('add-cart-me', $post->ID, 50);
+            $html .= '<div class="receive-protocol-'. $post->ID .' "></div>';
+            $html .= '</div>';
+            return $html;
 
-            print_r($urlPrint);
+        } 
 
-            if (!empty($protocol)) {
-                echo '<p>Protocolo: <b>' . $protocol . '</b></p>';
-                echo '<hr>';
-            }
+        $protocol = $order->getProtocol();
 
-            $order_id = $order->getOrderId();
+        if (!empty($protocol)) {
+            $html .= '<p>Protocolo: <b>' . $protocol . '</b></p>';
+            $html .= '<hr>';
+        }
 
-            if (!empty($order_id)) {
+        $order_id = $order->getOrderId();
 
-                self::showServiceName($detail);
+        if (!empty($order_id)) {
 
-                self::showVolumes($detail);
-                
-                self::showOptionals($detail);
+            $html .= self::showServiceName($detail);
 
-                self::showDeliveryTime($detail);
+            $html .= self::showVolumes($detail);
+            
+            $html .= self::showOptionals($detail);
 
-                self::showStatus($detail);
+            $html .= self::showDeliveryTime($detail);
 
-                self::showTracking($detail);
+            $html .= self::showStatus($detail);
 
-                self::removeCart($detail, $post->ID);
+            $html .= self::showTracking($detail);
 
-                self::showButtonPrint($detail, $post->ID);
-            }
+            $html .= self::removeCart($detail, $post->ID);
+
+            $html .= self::showButtonPrint($detail, $post->ID);
         }
 
         $imagePicPay = plugin_dir_url( dirname( __FILE__ ) ) . '../src/img/picpay.jpeg';
-        echo '<p>Gostou do plugin? Me pague um café ;)</p>';
-        echo '<img style="width:80%; margin-left:10%;" src="'. $imagePicPay .'" />';
+        $html .= '<p>Gostou do plugin? Me pague um café ;)</p>';
+        $html .= '<img style="width:80%; margin-left:10%;" src="'. $imagePicPay .'" />';
+
+        $html .= '</div>';
+
+        return $html;
 
     }
 
     public static function showServiceName($detail)
     {
+        $html = '';
         if (is_object($detail) && $detail->service) {
-            self::getPathImageCompany($detail);
-            echo '<p>Serviço: <b>' .$detail->service->name .'</b></p>';
-            echo '<hr>';
+            $html .= self::getPathImageCompany($detail);
+            $html .= '<p>Serviço: <b>' .$detail->service->name .'</b></p>';
+            $html .= '<hr>';
         }
+
+        return $html;
     }
 
     public static function getPathImageCompany($detail)
     {
+        $html = '';
         $company = str_replace(' ', '_', strtolower($detail->service->company->name));
         $imageService = plugin_dir_url( dirname( __FILE__ ) ) . '../src/img/' . $company . '.png';
-        echo '<img style="width:100px;" src="' . $imageService . '">';
+        $html .= '<img style="width:100px;" src="' . $imageService . '">';
+        return $html;
     }
 
     public static function showStatus($detail)
     {
+        $html = '';
         if (is_object($detail) && !empty($detail->status)) {
-            echo '<p>Status: <b>' .$detail->status . '</b></p>';
-            echo '<hr>';
+            $html .= '<p>Status: <b>' .$detail->status . '</b></p>';
+            $html .= '<hr>';
         }
+        return $html;
     }
 
     public static function showVolumes($detail)
     {
+        $html = '';
         if (is_object($detail) && isset($detail->volumes)) {
-            echo '<p><b>Volumes:</b></p>';
+            $html .= '<p><b>Volumes:</b></p>';
             foreach ($detail->volumes as $key => $volume) {
-                echo sprintf("<p>%scm x A %scm x C %scm - %sKg</p>", $volume->width,  $volume->height,  $volume->length,  $volume->weight);
+                $html .= sprintf("<p>%scm x A %scm x C %scm - %sKg</p>", $volume->width,  $volume->height,  $volume->length,  $volume->weight);
             }
-            echo '<hr>';
+            $html .= '<hr>';
         }
+        return $html;
     }
 
     public static function showOptionals($detail)
     {
+        $html = '';
         if (is_object($detail)) {
-            echo '<p><b>Opcionais:</b></p>';
+            $html .= '<p><b>Opcionais:</b></p>';
 
             $receipt = ($detail->receipt) ? 'sim' : 'não' ;
             $own_hand = ($detail->own_hand) ? 'sim' : 'não' ;
 
-            echo '<p><b>Aviso de recebimento:</b> ' . $receipt . '</p>';
-            echo '<p><b>Mãos própria:</b> ' . $own_hand . '</p>';
-            echo '<hr>';
+            $html .= '<p><b>Aviso de recebimento:</b> ' . $receipt . '</p>';
+            $html .= '<p><b>Mãos própria:</b> ' . $own_hand . '</p>';
+            $html .= '<hr>';
         }
+
+        return $html;
     }
 
     public static function showDeliveryTime($detail)
     {
+        $html = '';
         if (!empty($detail->delivery_min) && !empty($detail->delivery_max)) {
 
             $min = ($detail->delivery_min > 1) ? $detail->delivery_min . ' dias' : $detail->delivery_min . ' dia';
@@ -124,43 +144,52 @@ class TemplateService
                 $delivery = sprintf('Entre %s e %s', $min, $max);
             }
 
-            echo '<p><b>Prazo de entrega:</b> ' . $delivery . '</p>';
-            echo '<hr>';
+            $html .= '<p><b>Prazo de entrega:</b> ' . $delivery . '</p>';
+            $html .= '<hr>';
         }
+
+        return $html;
     }
 
     public static function showTracking($detail)
     {
+        $html = '';
         if (is_object($detail) && !empty($detail->tracking)) {
             $tracking =$detail->tracking;
-            echo 'Rastreio: <a target="_blank" href="https://www.melhorrastreio.com.br/rastreio/' . $tracking . '">' . $tracking . '</a>';
-            echo '<hr>';
+            $html .= 'Rastreio: <a target="_blank" href="https://www.melhorrastreio.com.br/rastreio/' . $tracking . '">' . $tracking . '</a>';
+            $html .= '<hr>';
         }
+        return $html;
     }
 
     public static function showButtonPrint($detail, $post_id)
     {
+        $html = '';
         if (!is_object($detail)) {
-            return false;
+            return $html;
         }
 
         if (!isset($detail->status)) {
-            return false;
+            return $html;
         }
 
         $status = $detail->status;
         
         if (in_array($status, ['released'])) {
-            echo '<p><button class="print-ticket-me button refund-items" data-id="' . $post_id . '">Imprimir</button></p>';
-            echo '<hr>';
+            $html .= '<p><button class="print-ticket-me button refund-items" data-id="' . $post_id . '">Imprimir</button></p>';
+            $html .= '<hr>';
         }
+
+        return $html;
     }
 
     public static function removeCart($detail, $post_id)
     {
+        $html = '';
         if (isset($detail->status) && $detail->status === 'pending') {
-            echo '<p><button class="remove-cart-me button refund-items" data-id="' . $post_id . '">Remover do carrinho</button></p>';
-            LoaderComponentHelper::add('remove-cart-me', $post_id, 50);
+            $html .= '<p><button class="remove-cart-me button refund-items" data-id="' . $post_id . '">Remover do carrinho</button></p>';
+            $html .= LoaderComponentHelper::add('remove-cart-me', $post_id, 50);
         }
+        return $html;
     }
 }
