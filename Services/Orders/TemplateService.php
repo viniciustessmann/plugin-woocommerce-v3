@@ -56,6 +56,8 @@ class TemplateService
 
             $html .= self::payTicket($detail, $post->ID, $balance);
 
+            $html .= self::addBalance($post->ID);
+
             $html .= self::removeCart($detail, $post->ID);
 
             $html .= self::showButtonPrint($detail, $post->ID);
@@ -212,6 +214,26 @@ class TemplateService
 
             $html .= '<p><b>Atenção: </b>Saldo insuficente para pagar essa etiqueta, você deve adicionar saldo na sua conta do Melhor Envio.</p>';
         }
+
+        return $html;
+    }
+
+    public static function addBalance($post_id)
+    {
+        $html = '<p><button class="add-balance-me button refund-items" data-id="' . $post_id . '">Adicionar créditos</button></p>';
+        $html .= '<div class="box-add-balance" style="display:none;">';
+        $html .= '<label>Valor:</label></br>';
+        $html .= '<input type="number" class="balance-me-input" value="10"></br></br>';
+        $html .= '<label>Plataforma de pagamento:</label></br>';
+        $html .= '<select class="gateway-me-input">';
+        $html .= '<option value="moip">Moip</option>';
+        $html .= '<option value="mercado-pago">Mercado Pago</option>';
+        $html .= '<option value="picpay">PicPay</option>';
+        $html .= '<option value="pagseguro">PagSeguro</option>';
+        $html .= '</select></br></br>';
+        $html .= '<button data-id="' . $post_id . '" class="button refund-items form-add-balance">Inserir saldo</button></br>';
+        $html .= LoaderComponentHelper::add('add-balance-me', $post_id, 50);
+        $html .= '</div>';
 
         return $html;
     }
