@@ -1,10 +1,10 @@
 <?php
 
-namespace Tessmann\Services;
+namespace Tessmann\Services\Orders;
 
 use Tessmann\Models\Order;
 use Tessmann\Services\GenerateTicketService;
-use Tessmann\Services\OrdersService;
+use Tessmann\Services\Orders\GetDataService;
 use Tessmann\Services\RequestService;
 
 class PrintTicketService
@@ -56,9 +56,7 @@ class PrintTicketService
             return false;
         }
 
-        $order_service = new OrdersService();
-
-        $data = $order_service->get($post_id, $order_id);
+        $data = (new GetDataService())->get($post_id);
 
         if (empty($data)) {
             return false;

@@ -1,23 +1,27 @@
 <?php
 
-namespace Tessmann\Services;
+namespace Tessmann\Services\Orders;
 
 use Tessmann\Models\Order;
 use Tessmann\Models\ShippingMethod;
+use Tessmann\Services\OrderProductsService;
+use Tessmann\Services\SellerDataService;
+use Tessmann\Services\BuyerService;
+use Tessmann\Services\CalculateService;
+use Tessmann\Services\RequestService;
+use Tessmann\Services\Orders\GetDataService;
 
-class OrdersService
+class CartService
 {
     const PLATAFORM = 'Tessmann shipping V1';
 
     const ROUTE_MELHOR_ENVIO_ADD_CART = '/cart';
 
-    const ROUTE_MELHOR_ENVIO_DETAIL_ORDER = '/orders/';
-
     /**
      * @param $post_id
      * @return false|object
      */
-    public function addCart($post_id)
+    public function add($post_id)
     {
         $order = wc_get_order($post_id);
 
@@ -114,23 +118,30 @@ class OrdersService
         return $data;
     }
 
-    /**
-     * @param $order_id
-     * @return object
-     */
-    public function get($post_id, $order_id)
+    public function remove($post_id)
     {
-        $data =  (new RequestService())->request(
-            Self::ROUTE_MELHOR_ENVIO_DETAIL_ORDER . $order_id,
-            'GET',
-            []
-        );
+        $order = new Order($post_id);
 
-        if (isset($data->message) && $data->message === 'No query results for model [App\Order].') {
-            return (new Order($post_id))->destroy();
+        $order_id = $order->getOrderId();
+
+        if (!$order_id) {
+            return false;
         }
 
-        return $data;
-    }
+        $detail = (new GetDataService())->get($post_id);
 
+        if (!isset($detail->id)) {
+            return false;
+        }
+
+        $response =  (new RequestService())->request(self::ROUTE_MELHOR_ENVIO_ADD_CART . '/' . $detail->id, 'DELETE', []);
+
+        if (!empty($response)) {
+            return false;
+        }
+
+        $order->destroy();
+
+        return true;
+    }
 }
