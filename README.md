@@ -44,7 +44,7 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 
 == Changelog ==
 = 1.6.0 =
-* Adição da funcionalidade de inserir créditos no carteira do Melhor Envio.
+* Adição da funcionalidade de inserir créditos na carteira do Melhor Envio.
 
 = 1.5.0 =
 * Adição da funcionalidade de pagar etiqueta por dentro da tela de detalhes do pedido.
