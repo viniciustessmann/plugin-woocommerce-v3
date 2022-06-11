@@ -75,6 +75,33 @@ jQuery('document').ready(function() {
         });
     })
 
+    jQuery('.receive-template-order').on('click', '.pay-cart-me', function(event){
+
+        event.preventDefault();
+
+        let post_id = jQuery(this).data('id');
+
+        let protocol = jQuery(this).data('protocol');
+
+        let price = jQuery(this).data('price');
+
+        jQuery('.pay-cart-me-loader-' + post_id).show();
+
+        var result = confirm("Você tem certeza que deseja pagar o item de protocolo " + protocol +  " do carrinho do Melhor Envio no valor de R$" + price + "?");
+
+        if (!result) {
+            jQuery(this).prop("disabled",false);
+            jQuery('.pay-cart-me-loader-' + post_id).hide();
+            return
+        } 
+
+        jQuery(this).hide();
+
+        payTicket(post_id).then(function (_resp) {
+            getTemplate(post_id);
+        });
+    })
+
     function addCart(post_id)
     {
         return new Promise((resolve, reject) => {
@@ -101,6 +128,21 @@ jQuery('document').ready(function() {
                 resolve(response)
             }).fail(() => {
                 reject('Ocorreu um erro ao remover o item do carrinho de compras do Melhor Envio');
+            });
+        });
+    }
+
+    function payTicket(post_id)
+    {
+        return new Promise((resolve, reject) => {
+            jQuery.ajax({
+                type: "POST",
+                url:  ajaxurl + '?action=pay_ticket',
+                data: {'post_id': post_id}
+            }).done((response) => {
+                resolve(response)
+            }).fail(() => {
+                reject('Ocorreu um erro ao pagar a etiqueta');
             });
         });
     }
