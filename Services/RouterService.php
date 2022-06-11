@@ -3,6 +3,7 @@
 namespace Tessmann\Services;
 
 use Tessmann\Controllers\OrdersController;
+use Tessmann\Controllers\PayTicketController;
 use Tessmann\Controllers\PrintController;
 use Tessmann\Controllers\RemoveCartController;
 use Tessmann\Controllers\OrderTemplateController;
@@ -13,6 +14,8 @@ class RouterService
     {
         $ordersController = new OrdersController();
 
+        $payTicketController = new PayTicketController();
+
         $printController = new PrintController();   
         
         $removeCartController = new RemoveCartController();
@@ -20,6 +23,8 @@ class RouterService
         $orderTemplateController = new OrderTemplateController();
 
         add_action('wp_ajax_add_cart', [$ordersController, 'addCart']);
+
+        add_action('wp_ajax_pay_ticket', [$payTicketController, 'pay']);
 
         add_action('wp_ajax_print_ticket', [$printController, 'print']);
 

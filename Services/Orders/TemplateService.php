@@ -4,6 +4,7 @@ namespace Tessmann\Services\Orders;
 
 use Tessmann\Helpers\LoaderComponentHelper;
 use Tessmann\Models\Order;
+use Tessmann\Services\BalanceService;
 use Tessmann\Services\Orders\GetDataService;
 
 class TemplateService
@@ -13,6 +14,8 @@ class TemplateService
         $order = new Order($post->ID);
 
         $detail = (new GetDataService())->get($post->ID);
+
+        $balance = (new BalanceService)->get();
 
         $html = '';
 
@@ -50,6 +53,8 @@ class TemplateService
             $html .= self::showStatus($detail);
 
             $html .= self::showTracking($detail);
+
+            $html .= self::payTicket($detail, $post->ID, $balance);
 
             $html .= self::removeCart($detail, $post->ID);
 
@@ -190,6 +195,24 @@ class TemplateService
             $html .= '<p><button class="remove-cart-me button refund-items" data-id="' . $post_id . '">Remover do carrinho</button></p>';
             $html .= LoaderComponentHelper::add('remove-cart-me', $post_id, 50);
         }
+        return $html;
+    }
+
+    public static function payTicket($detail, $post_id, $balance)
+    {
+        $html = '';
+        if (isset($detail->status) && $detail->status === 'pending') {
+            
+            if ($balance >= $detail->price) {
+                $html .= '<p><b>saldo:</b> R$' . number_format($balance,2,",",".") . '</p>';
+                $html .= '<p><button class="pay-cart-me button refund-items" data-id="' . $post_id . '" data-protocol="' . $detail->protocol . '" data-balance="' . $balance . '"  data-price="' . $detail->price . '">Pagar etiqueta</button></p>';
+                $html .= LoaderComponentHelper::add('pay-cart-me', $post_id, 50);
+                return $html;
+            }
+
+            $html .= '<p><b>Atenção: </b>Saldo insuficente para pagar essa etiqueta, você deve adicionar saldo na sua conta do Melhor Envio.</p>';
+        }
+
         return $html;
     }
 }
