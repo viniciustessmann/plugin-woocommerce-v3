@@ -44,8 +44,8 @@ class SellerDataService
                 ? ExtractNumberHelper::extract($data['document']) 
                 : null,
             "address" => $store_address,
-            'receipt' => $data['receipt'],
-            'own_hand' => $data['own_hand'],
+            'receipt' => (isset($data['receipt'])) ? $data['receipt'] :  false,
+            'own_hand' => (isset($data['own_hand'])) ? $data['own_hand'] :  false,
             "economic_activity_code" => (!empty($data['cnae'])) 
                 ? $data['cnae'] 
                 : null,

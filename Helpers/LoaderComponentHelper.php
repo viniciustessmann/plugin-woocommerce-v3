@@ -13,6 +13,6 @@ class LoaderComponentHelper
     public static function add($section, $post_id, $size)
     {
         $loader = plugin_dir_url( dirname( __FILE__ ) ) . 'src/img/loader.gif';
-        echo '<img class="' . $section . '-loader-' . $post_id . '" src="' . $loader . '" style="width:' . $size . 'px; display:none;" />';
+        return '<img class="' . $section . '-loader-' . $post_id . '" src="' . $loader . '" style="width:' . $size . 'px; display:none;" />';
     }
 }
