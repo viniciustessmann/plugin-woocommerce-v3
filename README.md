@@ -43,6 +43,9 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
 == Changelog ==
+= 1.7.0 =
+* Adição do link de rastreio na aba de "Minhas compras".
+
 = 1.6.0 =
 * Adição da funcionalidade de inserir créditos na carteira do Melhor Envio.
 
