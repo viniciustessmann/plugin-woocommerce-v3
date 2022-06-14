@@ -6,6 +6,7 @@ use Tessmann\Services\ColumnsListOrdersService;
 use Tessmann\Services\ActionListOrderService;
 use Tessmann\Services\HealthService;
 use Tessmann\Services\BoxMetaService;
+use Tessmann\Services\AddDataAccountClientService;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -13,7 +14,7 @@ require __DIR__ . '/vendor/autoload.php';
 Plugin Name: Cotações Tessmann
 Plugin URI: https://github.com/viniciustessmann/plugin-woocommerce-v3
 Description: Esse plugin foi desenvolvido para realizar cotações com a API pública do Melhor Envio e também para inserir os pedidos do WooCommerce no carrinho de compras do Melhor Envio. 
-Version: 1.6.0
+Version: 1.7.0
 Author: Vinícius Schlee Tessmann
 Author URI:
 License: GPL2
@@ -54,6 +55,15 @@ if (!class_exists('MelhorEnvioPlugin')) {
                         plugin_dir_url(__FILE__) . 'src/js/actions.js'
                     );
                 });
+            });
+
+            add_filter( 'woocommerce_account_orders_columns', function ($columns) {
+                return AddDataAccountClientService::createColumn($columns);
+            }, 10, 1 );
+        
+
+            add_action( 'woocommerce_my_account_my_orders_column_tracking_column', function ($order) {
+                return AddDataAccountClientService::insertDataColumn($order);
             });
         }
     }
