@@ -43,6 +43,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->agency_latam = isset($this->settings['agency_latam']) ? $this->settings['agency_latam'] : null;
                     $this->enableds = isset($this->settings['enableds']) ? $this->settings['enableds'] : null;
 
+                    (new Token())->set($this->token);
+
                 }
 
                 /**
@@ -150,8 +152,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     if(empty($this->token)) {
                         return false;
                     }
-
-                    (new Token())->set($this->token);
 
                     $rates = (new CalculateService($package, $this->enableds))
                         ->calculate();
