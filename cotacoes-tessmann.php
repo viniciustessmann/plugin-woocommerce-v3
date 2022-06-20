@@ -1,5 +1,8 @@
 <?php
 
+use Tessmann\Helpers\NoticeHelper;
+use Tessmann\Models\Token;
+use Tessmann\Services\RequestService;
 use Tessmann\Services\RouterService;
 use Tessmann\Services\ShippingMethodService;
 use Tessmann\Services\ColumnsListOrdersService;
@@ -14,7 +17,7 @@ require __DIR__ . '/vendor/autoload.php';
 Plugin Name: Cotações Tessmann
 Plugin URI: https://github.com/viniciustessmann/plugin-woocommerce-v3
 Description: Esse plugin foi desenvolvido para realizar cotações com a API pública do Melhor Envio e também para inserir os pedidos do WooCommerce no carrinho de compras do Melhor Envio. 
-Version: 1.7.1
+Version: 1.8.0
 Author: Vinícius Schlee Tessmann
 Author URI:
 License: GPL2
@@ -41,6 +44,12 @@ if (!class_exists('MelhorEnvioPlugin')) {
     {
         public static function init()
         {
+            (new Token())->isTokenValid();
+
+            if (!RequestService::isValid()) {
+                NoticeHelper::addNotice('Seu token Melhor Envio está inválido, gere um novo token no painel do Melhor Envio', 'notice-error');
+            }
+
             add_action('woocommerce_init', function() {
                 HealthService::check();
                 RouterService::init();
