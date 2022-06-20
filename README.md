@@ -43,6 +43,9 @@ E você  pode acessar os dados como Protocolo, status e código de rastreio dire
 ![image info](https://raw.githubusercontent.com/viniciustessmann/plugin-woocommerce-v3/develop/src/img/detalhes.png)
 
 == Changelog ==
+= 1.8.0 =
+* Adição de aviso de token inválido ou vencido 
+
 = 1.7.1 =
 * Correção na atualização do token 
 

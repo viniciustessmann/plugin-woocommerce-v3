@@ -12,7 +12,9 @@ class BalanceService
     {
         $request_service = new RequestService();
 
-        return $request_service->request(self::ROUTE_BALANCE, 'GET', [])->balance;
+        $result = $request_service->request(self::ROUTE_BALANCE, 'GET', []);
+
+        return (isset($result->balance)) ? $result->balance : 0;
     }
 
     public function add($value, $gateway)
